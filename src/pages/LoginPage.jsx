@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
 import { Mail, Lock } from 'lucide-react';
@@ -15,10 +15,8 @@ const LoginPage = () => {
     setError('');
     try {
       const { data } = await login(email, password);
-      
-      localStorage.setItem('access_token', data.access_token); 
-      localStorage.setItem('user', JSON.stringify(data.user)); 
-
+      localStorage.setItem('accessToken', data.accessToken);
+      alert('Đăng nhập thành công!');
       navigate('/'); 
     } catch (err) {
       setError(err.response?.data?.message || 'Tài khoản hoặc mật khẩu không chính xác');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../services/api';
 import { User, Mail, Lock } from 'lucide-react';
@@ -11,32 +11,23 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
     
-    if (!validateEmail(email)) {
-      setError('Email không hợp lệ');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Mật khẩu phải ít nhất 6 ký tự'); 
-      return;
-    }
-
     try {
-      const response = await register(username, email, password);
-      if (response.status === 201 || response.status === 200) {
+      const { data } = await register(username, email, password);
+      console.log(data);
+      if (data) {
          alert('Đăng ký thành công!');
          navigate('/login');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Email đã tồn tại hoặc thông tin không hợp lệ');
+      if(err.response?.data?.error) {
+        setError(err.response.data.error) || 'Dữ liệu không hợp lệ';
+      } else {
+        setError(err.response?.data?.message || 'Email đã tồn tại hoặc thông tin không hợp lệ');
+      }
     }
   };
 

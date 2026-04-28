@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getInfo } from '../services/api';
 import { Search, User, LogOut } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [query, setQuery] = useState('');
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) return;
+    const fetchUser = async () => {
+      try {
+        const res = await getInfo();
+        setUser(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -15,7 +31,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     navigate('/login');
   };
@@ -24,10 +40,10 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 w-full bg-cinema-black/90 backdrop-blur-md border-b border-white/10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="text-3xl font-bold text-cinema-red tracking-wider">FILMREVIEW</Link>
-        
+
         <form onSubmit={handleSearch} className="flex-1 max-w-xl mx-8 relative hidden md:block">
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Tìm kiếm phim, diễn viên..."
@@ -39,7 +55,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-6">
           <Link to="/profile" className="hidden md:flex items-center text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
             <User className="w-5 h-5 mr-2" />
-            {user.username || 'Tài khoản'}
+            {user?.username || 'Tài khoản'}
           </Link>
           <button onClick={handleLogout} className="text-gray-400 hover:text-cinema-red transition-colors" title="Đăng xuất">
             <LogOut className="w-5 h-5" />

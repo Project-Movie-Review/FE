@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MovieCard from '../components/MovieCard';
@@ -13,7 +13,7 @@ const SearchPage = () => {
   const genre = searchParams.get('genre') || '';
 
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
   // Mock dữ liệu bộ lọc
@@ -43,9 +43,6 @@ const SearchPage = () => {
     
     if (query || year || genre) {
       fetchSearch();
-    } else {
-      setMovies([]);
-      setLoading(false);
     }
   }, [query, page, year, genre]);
 
@@ -89,7 +86,9 @@ const SearchPage = () => {
         </div>
 
         {/* Hiển thị Dữ liệu & Loading Skeleton */}
-        {loading ? (
+        {!query && !year && !genre ? (
+          <div className="text-center py-32 text-gray-500 text-xl font-medium">Không tìm thấy bộ phim nào phù hợp.</div>
+        ) : loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {Array.from({ length: 10 }).map((_, i) => (
               <div key={i} className="aspect-[2/3] w-full bg-[#27272a]/50 animate-pulse rounded-xl border border-white/5"></div>
