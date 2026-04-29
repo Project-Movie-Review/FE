@@ -24,5 +24,6 @@ api.interceptors.response.use(
 export const login = (email, password) => api.post('/auth/login', { email, password });
 export const register = (username, email, password) => api.post('/auth/register', { username, email, password });
 export const getInfo = () => api.get('/user/profile');
-export const getTrendingMovies = () => api.get('/movies/trending');
-export const searchMovies = (query, page = 1, year = '', genre = '') => api.get('/movies/search', { params: { query, page, year, genre } });
+export const getTrendingMovies = () => api.get('/movie/trending');
+export const searchMovies = (query, page = 1) => api.get('/movie/search', { params: { query, page  } });
+export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder) => api.get('/movie/filter', { params: { minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder } });

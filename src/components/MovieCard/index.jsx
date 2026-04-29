@@ -6,7 +6,7 @@ const MovieCard = ({ movie }) => {
     <Link to={`/movie/${movie.id}`} className="group relative block overflow-hidden rounded-xl bg-cinema-zinc transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(229,9,20,0.3)]">
       <div className="aspect-[2/3] w-full">
         <img 
-          src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Poster'} 
+          src={movie.poster ? movie.poster : 'https://via.placeholder.com/500x750?text=No+Poster'} 
           alt={movie.title} 
           className="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-60"
         />
@@ -16,10 +16,10 @@ const MovieCard = ({ movie }) => {
         <div className="flex items-center mt-2 space-x-2 text-sm text-gray-300">
           <span className="flex items-center text-yellow-500 font-medium">
             <Star className="w-4 h-4 mr-1 fill-current" />
-            {movie.vote_average?.toFixed(1) || 'NR'}
+            {movie.rating?.toFixed(1) || 'TBA'}
           </span>
           <span>•</span>
-          <span>{movie.release_date ? movie.release_date.substring(0, 4) : 'N/A'}</span>
+          <span>{movie.releaseDate ? movie.releaseDate : 'TBA'}</span>
         </div>
       </div>
     </Link>
