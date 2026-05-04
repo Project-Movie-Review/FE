@@ -40,7 +40,7 @@ const HomePage = () => {
           <div className="container mx-auto px-4 mt-12 space-y-16">
             <MovieSection title="Phim Thịnh Hành" movies={trendingList} />
             {topRatedList.length > 0 && (
-              <MovieSection title="Đánh Giá Cao" movies={topRatedList} />
+              <MovieSection title="Có thể bạn sẽ thích" movies={topRatedList} />
             )}
           </div>
         </>
