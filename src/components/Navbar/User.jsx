@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getInfo } from '../../services/api';
-import { User } from 'lucide-react';
+import defaultUser from '../../assets/user.png';
 import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
+
+    const avatarUrl = user?.avatar ? user.avatar : defaultUser;
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
@@ -22,8 +24,8 @@ const UserProfile = () => {
 
     return (
         <Link to="/profile" className="hidden md:flex items-center text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
-            <User className="w-5 h-5 mr-2" />
-            {user?.username || 'Tài khoản'}
+            <img src={avatarUrl} alt="Avatar" className="w-10 h-10 mr-2 rounded-full" />
+            {user?.username || 'Khách'}
         </Link>
     )
 }

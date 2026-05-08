@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import SearchBar from './Search';
 import UserProfile from './User';
-import LogoutButton from './Logout';
+import UserButton from './UserButton';
 
 const Navbar = () => {
 
@@ -13,7 +13,7 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-6">
           <UserProfile />
-          <LogoutButton/>
+          <UserButton/>
         </div>
       </div>
     </nav>
