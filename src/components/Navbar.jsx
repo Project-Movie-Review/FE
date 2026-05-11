@@ -7,6 +7,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
+  const isLoggedIn = !!localStorage.getItem('access_token');
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
@@ -17,7 +19,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -37,13 +39,26 @@ const Navbar = () => {
         </form>
 
         <div className="flex items-center space-x-6">
-          <Link to="/profile" className="hidden md:flex items-center text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
-            <User className="w-5 h-5 mr-2" />
-            {user.username || 'Tài khoản'}
-          </Link>
-          <button onClick={handleLogout} className="text-gray-400 hover:text-cinema-red transition-colors" title="Đăng xuất">
-            <LogOut className="w-5 h-5" />
-          </button>
+          {isLoggedIn ? (
+            <>
+              {user.role === 'admin' && (
+                <Link to="/admin/dashboard" className="hidden md:flex items-center text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all">
+                  Dashboard
+                </Link>
+              )}
+              <Link to="/profile" className="hidden md:flex items-center text-sm text-gray-300 hover:text-white transition-colors cursor-pointer">
+                <User className="w-5 h-5 mr-2" />
+                {user.username || 'Tài khoản'}
+              </Link>
+              <button onClick={handleLogout} className="text-gray-400 hover:text-cinema-red transition-colors" title="Đăng xuất">
+                <LogOut className="w-5 h-5" />
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="bg-cinema-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition-colors shadow-lg text-sm">
+              Đăng nhập
+            </Link>
+          )}
         </div>
       </div>
     </nav>

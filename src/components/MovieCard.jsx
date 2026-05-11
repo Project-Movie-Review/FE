@@ -3,11 +3,16 @@ import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const MovieCard = ({ movie }) => {
+  const getImageUrl = (path) => {
+    if (!path) return 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=500&auto=format&fit=crop';
+    return path.startsWith('http') ? path : `https://image.tmdb.org/t/p/w500${path}`;
+  };
+
   return (
     <Link to={`/movie/${movie.id}`} className="group relative block overflow-hidden rounded-xl bg-cinema-zinc transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(229,9,20,0.3)]">
       <div className="aspect-[2/3] w-full">
         <img 
-          src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Poster'} 
+          src={getImageUrl(movie.poster_path)} 
           alt={movie.title} 
           className="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-60"
         />

@@ -22,10 +22,10 @@ const HomePage = () => {
     fetchMovies();
   }, []);
 
-  const heroMovie = movies.length > 0 ? movies[0] : null;
+  const heroMovies = movies.slice(0, 5);
   // Tách mảng để hiển thị theo mục
-  const trendingList = movies.slice(1, 11);
-  const topRatedList = movies.slice(11, 21);
+  const trendingList = movies.slice(5, 15);
+  const topRatedList = movies.slice(10, 20);
 
   return (
     <div className="min-h-screen bg-cinema-black font-sans pb-16">
@@ -37,7 +37,7 @@ const HomePage = () => {
         </div>
       ) : (
         <>
-          <HeroSection movie={heroMovie} />
+          <HeroSection movies={heroMovies} />
           
           <div className="container mx-auto px-4 mt-12 space-y-16">
             <section>
