@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import MovieCard from '../components/MovieCard';
+import Navbar from '../components/Navbar/index';
+import MovieCard from '../components/MovieCard/index';
 import { searchMovies } from '../services/api';
 
 const SearchPage = () => {

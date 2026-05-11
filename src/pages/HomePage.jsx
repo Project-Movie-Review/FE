@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar/index';
 import { getTrendingMovies } from '../services/api';
-import HeroSection from '../components/HeroSection';
+import HeroSection from '../components/HeroSection/index';
 import MovieSection from '../components/MovieSection';
 
 const HomePage = () => {

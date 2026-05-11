@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getMovieById, getMovieReviews, submitReview } from '../services/api';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar/index';
 import { Star, Clock, Calendar, Share2, Plus, MessageSquare, ThumbsUp, ThumbsDown, Minus } from 'lucide-react';
 import { motion } from 'framer-motion';
 

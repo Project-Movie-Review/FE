@@ -64,7 +64,14 @@ const mockMovies = [
     vote_average: 6.9, 
     release_date: "2024-05-08", 
     overview: "Nhiều năm sau thời đại của Caesar, một thủ lĩnh khỉ mới bắt đầu xây dựng đế chế của mình." 
-  }
+  },
+  { id: 6, title: "Bad Boys: Ride or Die", poster_path: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=500&auto=format&fit=crop", vote_average: 7.6, release_date: "2024-06-05" },
+  { id: 7, title: "The Garfield Movie", poster_path: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?q=80&w=500&auto=format&fit=crop", vote_average: 7.1, release_date: "2024-04-30" },
+  { id: 8, title: "Dune: Part Two", poster_path: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=500&auto=format&fit=crop", vote_average: 8.2, release_date: "2024-02-27" },
+  { id: 9, title: "Kung Fu Panda 4", poster_path: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=500&auto=format&fit=crop", vote_average: 7.1, release_date: "2024-03-02" },
+  { id: 10, title: "A Quiet Place: Day One", poster_path: "https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=500&auto=format&fit=crop", vote_average: 6.8, release_date: "2024-06-26" },
+  { id: 11, title: "Oppenheimer", poster_path: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=500&auto=format&fit=crop", vote_average: 8.1, release_date: "2023-07-19" },
+  { id: 12, title: "Spider-Man: Across the Spider-Verse", poster_path: "https://images.unsplash.com/photo-1501432377862-3d0432b87a14?q=80&w=500&auto=format&fit=crop", vote_average: 8.4, release_date: "2023-05-31" }
 ];
 
 let mockUsers = [
@@ -151,6 +158,8 @@ export const toggleUserLock = (userId) => api.patch(`/admin/user/${userId}/toggl
   mockUsers = mockUsers.map(u => u.id === userId ? { ...u, isLocked: !u.isLocked } : u);
   return { data: { message: 'Success' } };
 });
+
+export const getAllReviews = () => api.get('/admin/reviews').catch(() => ({ data: mockReviews }));
 
 export const deleteReviewAdmin = (reviewId) => api.delete(`/admin/review/${reviewId}`).catch(() => {
   mockReviews = mockReviews.filter(r => r.id !== reviewId);
