@@ -1,4 +1,3 @@
-import React from 'react';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +12,7 @@ const MovieCard = ({ movie }) => {
       <div className="aspect-[2/3] w-full">
         <img 
           src={getImageUrl(movie.poster_path)} 
+
           alt={movie.title} 
           className="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-60"
         />
@@ -22,10 +22,10 @@ const MovieCard = ({ movie }) => {
         <div className="flex items-center mt-2 space-x-2 text-sm text-gray-300">
           <span className="flex items-center text-yellow-500 font-medium">
             <Star className="w-4 h-4 mr-1 fill-current" />
-            {movie.vote_average?.toFixed(1) || 'NR'}
+            {movie.rating?.toFixed(1) || 'TBA'}
           </span>
           <span>•</span>
-          <span>{movie.release_date ? movie.release_date.substring(0, 4) : 'N/A'}</span>
+          <span>{movie.releaseDate ? movie.releaseDate : 'TBA'}</span>
         </div>
       </div>
     </Link>

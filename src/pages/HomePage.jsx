@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import MovieCard from '../components/MovieCard';
 import { getTrendingMovies } from '../services/api';
+import HeroSection from '../components/HeroSection';
+import MovieSection from '../components/MovieSection';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const { data } = await getTrendingMovies();
-        setMovies(data.results || data || []);
+        setMovies(data || []);
       } catch (err) {
         console.error('Lỗi khi lấy danh sách phim:', err);
       } finally {
@@ -38,22 +40,10 @@ const HomePage = () => {
       ) : (
         <>
           <HeroSection movies={heroMovies} />
-          
           <div className="container mx-auto px-4 mt-12 space-y-16">
-            <section>
-              <h2 className="text-3xl font-bold text-white mb-8 border-l-4 border-cinema-red pl-4 tracking-wide">Phim Thịnh Hành</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {trendingList.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
-              </div>
-            </section>
-
+            <MovieSection title="Phim Thịnh Hành" movies={trendingList} />
             {topRatedList.length > 0 && (
-              <section>
-                <h2 className="text-3xl font-bold text-white mb-8 border-l-4 border-cinema-red pl-4 tracking-wide">Đánh Giá Cao</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {topRatedList.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
-                </div>
-              </section>
+              <MovieSection title="Có thể bạn sẽ thích" movies={topRatedList} />
             )}
           </div>
         </>

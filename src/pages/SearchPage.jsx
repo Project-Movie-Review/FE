@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+// Tách phần filter ra phần tìm kiếm nâng cao, tôi có api movie/filter để làm phần đó  rồi
+
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MovieCard from '../components/MovieCard';
@@ -9,31 +11,32 @@ const SearchPage = () => {
   
   const query = searchParams.get('query') || '';
   const page = parseInt(searchParams.get('page') || '1');
-  const year = searchParams.get('year') || '';
-  const genre = searchParams.get('genre') || '';
+  // const year = searchParams.get('year') || '';
+  // const genre = searchParams.get('genre') || '';
 
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
   // Mock dữ liệu bộ lọc
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1999 }, (_, i) => currentYear - i);
-  const genres = [
-    { id: '28', name: 'Hành động' },
-    { id: '35', name: 'Hài' },
-    { id: '18', name: 'Tâm lý' },
-    { id: '878', name: 'Viễn tưởng' },
-    { id: '27', name: 'Kinh dị' },
-  ];
+  // const currentYear = new Date().getFullYear();
+  // const years = Array.from({ length: currentYear - 1999 }, (_, i) => currentYear - i);
+  // const genres = [
+  //   { id: '28', name: 'Hành động' },
+  //   { id: '35', name: 'Hài' },
+  //   { id: '18', name: 'Tâm lý' },
+  //   { id: '878', name: 'Viễn tưởng' },
+  //   { id: '27', name: 'Kinh dị' },
+  // ];
 
   useEffect(() => {
     const fetchSearch = async () => {
       setLoading(true);
       try {
-        const { data } = await searchMovies(query, page, year, genre);
-        setMovies(data.results || data || []);
-        setTotalPages(data.total_pages || 1);
+        const { data } = await searchMovies(query, page);
+        const {item, pagnition} = data;
+        setMovies(item || []);
+        setTotalPages(pagnition?.totalPages || 1);
       } catch (err) {
         console.error('Lỗi khi tìm kiếm:', err);
       } finally {
@@ -41,22 +44,19 @@ const SearchPage = () => {
       }
     };
     
-    if (query || year || genre) {
+    if (query || page > 1) {
       fetchSearch();
-    } else {
-      setMovies([]);
-      setLoading(false);
     }
-  }, [query, page, year, genre]);
+  }, [query, page]);
 
-  const handleFilterChange = (key, value) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (value) newParams.set(key, value);
-    else newParams.delete(key);
+  // const handleFilterChange = (key, value) => {
+  //   const newParams = new URLSearchParams(searchParams);
+  //   if (value) newParams.set(key, value);
+  //   else newParams.delete(key);
     
-    newParams.set('page', '1'); // Reset page về 1 khi lọc
-    setSearchParams(newParams);
-  };
+  //   newParams.set('page', '1'); // Reset page về 1 khi lọc
+  //   setSearchParams(newParams);
+  // };
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -76,7 +76,7 @@ const SearchPage = () => {
           Kết quả cho: <span className="text-cinema-red">"{query}"</span>
         </h1>
 
-        {/* Thanh Bộ Lọc */}
+       {/* Thanh Bộ Lọc
         <div className="flex flex-wrap gap-4 mb-8 p-4 bg-[#27272a]/50 rounded-lg border border-white/10 backdrop-blur-md">
           <select value={year} onChange={(e) => handleFilterChange('year', e.target.value)} className="bg-cinema-black border border-white/20 text-white p-3 rounded-lg outline-none focus:border-cinema-red transition">
             <option value="">Tất cả năm phát hành</option>
@@ -85,11 +85,13 @@ const SearchPage = () => {
           <select value={genre} onChange={(e) => handleFilterChange('genre', e.target.value)} className="bg-cinema-black border border-white/20 text-white p-3 rounded-lg outline-none focus:border-cinema-red transition">
             <option value="">Tất cả thể loại</option>
             {genres.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-          </select>
-        </div>
+          </select> 
+        </div>  */}
 
         {/* Hiển thị Dữ liệu & Loading Skeleton */}
-        {loading ? (
+        {!query  ? (
+          <div className="text-center py-32 text-gray-500 text-xl font-medium">Không tìm thấy bộ phim nào phù hợp.</div>
+        ) : loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {Array.from({ length: 10 }).map((_, i) => (
               <div key={i} className="aspect-[2/3] w-full bg-[#27272a]/50 animate-pulse rounded-xl border border-white/5"></div>
