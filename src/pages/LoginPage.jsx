@@ -17,7 +17,6 @@ const LoginPage = () => {
     try {
       const { data } = await login(email, password);
       localStorage.setItem('accessToken', data.accessToken);
-      alert('Đăng nhập thành công!');
       navigate('/'); 
     } catch (err) {
       setError(err.response?.data?.message || 'Tài khoản hoặc mật khẩu không chính xác');

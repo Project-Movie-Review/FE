@@ -8,12 +8,11 @@ const UserButton = () => {
         if(localStorage.getItem('accessToken')) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('user');
-            alert('Đăng xuất thành công!');
         } 
         navigate('/login');
     };
 
-    let className = "flex items-center gap-2 bg-cinema-red text-white hover:bg-cinema-red/80 transition-colors";
+    let className = "flex items-center gap-2 bg-cinema-red text-white hover:bg-cinema-red/80 transition-colors cursor-pointer px-4 py-2 rounded-lg font-medium";
 
     return (
         localStorage.getItem('accessToken') ? (
