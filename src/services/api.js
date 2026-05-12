@@ -26,7 +26,11 @@ export const register = (username, email, password) => api.post('/auth/register'
 export const getInfo = () => api.get('/user/profile');
 export const getTrendingMovies = () => api.get('/movie/trending');
 export const searchMovies = (query, page = 1) => api.get('/movie/search', { params: { query, page  } });
-export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder) => api.get('/movie/filter', { params: { minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder } });
+export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder) => api.get('/movie/filter', { query: { minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder } });
 export const getUserWatchlist = () => api.get('/watchlist/user');
 export const updateUser = (username = null, avatar = null) => api.put('/user/update', { username, avatar });
 export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword });
+export const getMovieDetail = (id) => api.get(`/movie/${id}`);
+export const getMovieReviews = (id, sortBy, sortOrder, page, limit) => api.get(`/review/${id}`, { query: { sortBy, sortOrder, page, limit } });
+export const submitReview = (movieId, rating, content) => api.post('/review/create', { movieId, rating, content });
+export const toggleWatchlist = (movieId) => api.post('/watchlist/toggle', { movieId });

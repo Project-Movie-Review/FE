@@ -1,0 +1,169 @@
+import { motion } from 'framer-motion';
+import { ArrowLeft, Calendar, Clock, Star, Users, Plus, Minus, Link2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const placeholderPoster = 'https://via.placeholder.com/500x750?text=No+Poster';
+const placeholderBackdrop = 'https://via.placeholder.com/1920x1080?text=No+Image';
+
+const MovieHeader = ({
+  movie,
+  reviewAvg,
+  isInWatchlist,
+  isLoadingWatchlist,
+  onToggleWatchlist,
+  getMediaUrl,
+}) => {
+  const navigate = useNavigate();
+
+  const backdropUrl = movie.backdrop || movie.backdrop_path;
+  const posterUrl = movie.poster || movie.poster_path;
+  const movieYear = movie.release_date ? String(movie.release_date).slice(-4) : 'Chưa rõ';
+  const displayAverage = Number(reviewAvg ?? movie.vote_average ?? 0);
+
+  return (
+    <div className="relative min-h-[500px] w-full overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src={getMediaUrl(backdropUrl, placeholderBackdrop)}
+          alt={movie.title}
+          className="h-full w-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-cinema-black via-cinema-black/85 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cinema-black via-cinema-black/90 to-transparent" />
+      </div>
+
+      <div className="relative container mx-auto flex h-full items-center px-4 pt-24">
+        <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-[280px_minmax(0,1fr)]">
+          {/* Poster */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="hidden overflow-hidden rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(229,9,20,0.25)] md:block"
+          >
+            <img
+              src={getMediaUrl(posterUrl, placeholderPoster)}
+              alt={movie.title}
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="space-y-6"
+          >
+            {/* Navigation & Tags */}
+            <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 transition-colors hover:bg-white/10"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Quay lại
+              </button>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                {movie.status || 'Unknown'}
+              </span>
+              {movie.tagline ? (
+                <span className="rounded-full border border-cinema-red/30 bg-cinema-red/10 px-3 py-1.5 text-cinema-red">
+                  {movie.tagline}
+                </span>
+              ) : null}
+            </div>
+
+            {/* Title */}
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 md:text-6xl">
+                {movie.title}
+              </h1>
+              {movie.original_title && movie.original_title !== movie.title ? (
+                <p className="text-lg text-white/55">{movie.original_title}</p>
+              ) : null}
+            </div>
+
+            {/* Movie Info Tags */}
+            <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-gray-300">
+              <span className="flex items-center rounded-full border border-yellow-500/20 bg-yellow-500/10 px-3 py-1.5 text-yellow-500">
+                <Star className="mr-1 h-4 w-4 fill-current" />
+                {displayAverage.toFixed(1)} / 10
+              </span>
+              <span className="flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                <Calendar className="mr-2 h-4 w-4 text-gray-400" />
+                {movieYear}
+              </span>
+              <span className="flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                <Clock className="mr-2 h-4 w-4 text-gray-400" />
+                {movie.runtime ? `${movie.runtime} phút` : 'Chưa có runtime'}
+              </span>
+              <span className="flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                <Users className="mr-2 h-4 w-4 text-gray-400" />
+                {movie.vote_count ?? 0} lượt vote
+              </span>
+            </div>
+
+            {/* Genres */}
+            <div className="flex flex-wrap gap-2">
+              {movie.genres?.map((genre) => (
+                <span
+                  key={genre.id}
+                  className="rounded-full border border-cinema-red/30 bg-cinema-red/15 px-3 py-1 text-xs text-cinema-red"
+                >
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+
+            {/* Overview */}
+            <p className="max-w-4xl text-lg leading-relaxed text-gray-300">
+              {movie.overview || 'Chưa có mô tả cho phim này.'}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                onClick={onToggleWatchlist}
+                disabled={isLoadingWatchlist}
+                className={`inline-flex items-center rounded-xl px-5 py-3 font-bold transition-all active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 ${
+                  isInWatchlist
+                    ? 'bg-red-600 text-white hover:bg-red-700'
+                    : 'bg-green-600 text-white hover:bg-green-700'
+                }`}
+              >
+                {isInWatchlist ? (
+                  <>
+                    <Minus className="mr-2 h-5 w-5" />
+                    Xóa khỏi watchlist
+                  </>
+                ) : (
+                  <>
+                    <Plus className="mr-2 h-5 w-5" />
+                    Thêm watchlist
+                  </>
+                )}
+              </button>
+              <a
+                href={movie.homepage || '#'}
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center rounded-xl px-5 py-3 font-bold transition-all active:scale-95 ${
+                  movie.homepage
+                    ? 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
+                    : 'pointer-events-none bg-white/10 text-white/40'
+                }`}
+              >
+                <Link2 className="mr-2 h-5 w-5" />
+                Website
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MovieHeader;

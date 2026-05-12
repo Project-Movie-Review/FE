@@ -4,6 +4,7 @@ import RegisterPage from '../pages/RegisterPage';
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
 import ProfilePage from '../pages/ProfilePage';
+import MovieDetailPage from '../pages/MovieDetailPage';
 
 const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/movie/:id" element={<MovieDetailPage />} />
       <Route path="/" element={<HomePage />} /> 
     </Routes>
   );
