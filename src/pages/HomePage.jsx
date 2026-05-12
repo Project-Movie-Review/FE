@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+// import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar/index';
 import { getTrendingMovies } from '../services/api';
-import HeroSection from '../components/HeroSection';
+import HeroSection from '../components/HeroSection/index';
 import MovieSection from '../components/MovieSection';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   
   useEffect(() => {
     const fetchMovies = async () => {
@@ -24,13 +24,9 @@ const HomePage = () => {
     fetchMovies();
   }, []);
 
-  const handleMovieClick = (id) => {
-    navigate(`/movie/${id}`);
-  }
-
-  const heroMovie = movies.length > 0 ? movies[0] : null;
+  const heroMovies = movies.slice(0, 5);
   // Tách mảng để hiển thị theo mục
-  const trendingList = movies.slice(0, 10);
+  const trendingList = movies.slice(5, 15);
   const topRatedList = movies.slice(10, 20);
 
   return (
@@ -43,7 +39,7 @@ const HomePage = () => {
         </div>
       ) : (
         <>
-          <HeroSection movie={heroMovie} onClick={() => handleMovieClick(heroMovie.id)} />
+          <HeroSection movies={heroMovies} />
           <div className="container mx-auto px-4 mt-12 space-y-16">
             <MovieSection title="Phim Thịnh Hành" movies={trendingList} />
             {topRatedList.length > 0 && (
