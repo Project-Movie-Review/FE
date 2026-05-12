@@ -10,6 +10,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
+        console.log(token);
         if (!token) return;
         const fetchUser = async () => {
             try {
