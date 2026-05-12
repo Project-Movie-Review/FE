@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 import { getTrendingMovies } from '../services/api';
 import HeroSection from '../components/HeroSection/index';
@@ -8,7 +8,7 @@ import MovieSection from '../components/MovieSection';
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const fetchMovies = async () => {
@@ -23,6 +23,10 @@ const HomePage = () => {
     };
     fetchMovies();
   }, []);
+  
+  const handleMovieClick = (id) => {
+    navigate(`/movie/${id}`);
+  }
 
   const heroMovies = movies.slice(0, 5);
   // Tách mảng để hiển thị theo mục
@@ -39,7 +43,7 @@ const HomePage = () => {
         </div>
       ) : (
         <>
-          <HeroSection movies={heroMovies} />
+          <HeroSection movies={heroMovies} onClick={handleMovieClick} />
           <div className="container mx-auto px-4 mt-12 space-y-16">
             <MovieSection title="Phim Thịnh Hành" movies={trendingList} />
             {topRatedList.length > 0 && (
