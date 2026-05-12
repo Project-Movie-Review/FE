@@ -27,3 +27,6 @@ export const getInfo = () => api.get('/user/profile');
 export const getTrendingMovies = () => api.get('/movie/trending');
 export const searchMovies = (query, page = 1) => api.get('/movie/search', { params: { query, page  } });
 export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder) => api.get('/movie/filter', { params: { minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder } });
+export const getUserWatchlist = () => api.get('/watchlist/user');
+export const updateUser = (username = null, avatar = null) => api.put('/user/update', { username, avatar });
+export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword });
