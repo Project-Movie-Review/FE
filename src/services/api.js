@@ -105,7 +105,7 @@ export const toggleWatchlist = (movieId) => api.post('/watchlist/toggle', { movi
 
 // User Profile
 export const updateUser = (username = null, avatar = null) => api.put('/user/update', { username, avatar }).catch(() => ({ data: { username, avatar } }));
-export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword }).catch(() => ({ data: { message: 'Success' } }));
+export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword });
 
 // --- ADMIN FUNCTIONS (Restored) ---
 export const getAdminStats = () => api.get('/admin/stats').catch(() => ({

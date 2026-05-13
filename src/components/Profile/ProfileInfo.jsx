@@ -1,6 +1,6 @@
-import { User, Camera, Edit2, Save } from 'lucide-react';
+import { User, Camera, Edit2, Save, AlertCircle, CheckCircle } from 'lucide-react';
 
-const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave }) => {
+const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave, error, success }) => {
   return (
     <section className="bg-cinema-zinc/30 rounded-2xl p-8 border border-white/10 shadow-xl animate-fade-in">
       <div className="flex justify-between items-center mb-8">
@@ -26,6 +26,20 @@ const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave }) =>
           </button>
         )}
       </div>
+
+      {error && (
+        <div className="mt-6 flex items-center space-x-3 bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+          <span className="text-red-400 text-sm">{error}</span>
+        </div>
+      )}
+
+      {success && (
+        <div className="mt-6 flex items-center space-x-3 bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+          <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <span className="text-green-400 text-sm">{success}</span>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Username */}

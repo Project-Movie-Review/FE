@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import MovieSection from '../components/MovieSection';
-import { getInfo, getUserWatchlist, updateUser, changePassword } from '../services/api';
+import { getInfo, getUserWatchlist, updateUser, changePassword, toggleWatchlist } from '../services/api';
 import defaultUser from '../assets/user.png';
 
 // Sub-components
@@ -18,6 +18,9 @@ const ProfilePage = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '' });
+  const [profileError, setProfileError] = useState('');
+  const [settingsError, setSettingsError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const isLoggedIn = !!localStorage.getItem('accessToken');
 
@@ -71,31 +74,40 @@ const ProfilePage = () => {
   };
 
   const handleSaveProfile = async () => {
+    setProfileError('');
+    setSuccessMessage('');
     try {
       const response = await updateUser(userData.userName, userData.avatar);
       if (response?.data) {
         setUserData(prev => ({ ...prev, userName: response.data.username, avatar: response.data.avatar }));
         localStorage.setItem('user', JSON.stringify({ ...JSON.parse(localStorage.getItem('user')), username: response.data.username, avatar: response.data.avatar }));
-        alert('Đã cập nhật thông tin thành công!');
+        setSuccessMessage('Đã cập nhật thông tin thành công!');
         setIsEditing(false);
+        setTimeout(() => setSuccessMessage(''), 3000);
       }
     } catch (error) {
-      alert(error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật thông tin.');
+      const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật thông tin.';
+      setProfileError(errorMsg);
     }
   };
 
   const handleSaveSettings = async () => {
+    setSettingsError('');
+    setSuccessMessage('');
     if (!passwords.currentPassword || !passwords.newPassword) {
-      alert('Vui lòng nhập đầy đủ mật khẩu.'); return;
+      setSettingsError('Vui lòng nhập đầy đủ mật khẩu.');
+      return;
     }
     try {
       const response = await changePassword(passwords.currentPassword, passwords.newPassword);
       if (response?.data) {
-        alert('Đã cập nhật mật khẩu thành công!');
+        setSuccessMessage('Đã cập nhật mật khẩu thành công!');
         setPasswords({ currentPassword: '', newPassword: '' });
+        setTimeout(() => setSuccessMessage(''), 3000);
       }
     } catch (error) {
-      alert(error.response?.data?.message || 'Có lỗi xảy ra khi đổi mật khẩu.');
+      const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi đổi mật khẩu.';
+      setSettingsError(errorMsg);
     }
   };
 
@@ -109,8 +121,8 @@ const ProfilePage = () => {
     try {
       await toggleWatchlist(movieId);
       setWatchlist(prev => prev.filter(m => m.id !== movieId));
-    } catch (error) {
-      alert('Không thể xóa phim khỏi danh sách yêu thích.');
+    } catch {
+      setProfileError('Không thể xóa phim khỏi danh sách yêu thích.');
     }
   };
 
@@ -123,7 +135,9 @@ const ProfilePage = () => {
             isEditing={isEditing} 
             setIsEditing={setIsEditing} 
             onChange={handleChange} 
-            onSave={handleSaveProfile} 
+            onSave={handleSaveProfile}
+            error={profileError}
+            success={successMessage}
           />
         );
       case 'watchlist':
@@ -139,7 +153,9 @@ const ProfilePage = () => {
           <ProfileSettings 
             passwords={passwords} 
             onPasswordChange={handlePasswordChange} 
-            onSave={handleSaveSettings} 
+            onSave={handleSaveSettings}
+            error={settingsError}
+            success={successMessage}
           />
         );
       default: return null;
