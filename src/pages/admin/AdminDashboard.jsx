@@ -1,17 +1,17 @@
-// import { useState, useEffect } from 'react';
-// // import { getAdminStats } from '../../services/api';
+// import  { useState, useEffect } from 'react';
+// import { getAdminStats } from '../../services/api';
 // import { Users, Film, MessageSquare, AlertTriangle, TrendingUp } from 'lucide-react';
 // import { motion } from 'framer-motion';
 
 // const AdminDashboard = () => {
-//   const [stats, setStats] = useState(null);
+//  const [stats, setStats] = useState(null);
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
 //     const fetchStats = async () => {
 //       try {
-//         // const res = await getAdminStats();
-//         // setStats(res.data);
+//         const res = await getAdminStats();
+//         setStats(res.data);
 //       } catch (error) {
 //         console.error("Failed to fetch stats", error);
 //       } finally {

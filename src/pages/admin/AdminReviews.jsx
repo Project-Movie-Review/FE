@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 // import { getAllReviews, deleteReviewAdmin } from '../../services/api';
 // import { Trash2, MessageSquareOff, ThumbsUp, ThumbsDown, Minus, Filter } from 'lucide-react';
 // import { motion, AnimatePresence } from 'framer-motion';
@@ -94,7 +94,7 @@
 //               ) : (
 //                 <AnimatePresence>
 //                   {filteredReviews.map((review) => {
-//                     const sentiment = getSentimentConfig(review.sentiment);
+//                    const sentiment = getSentimentConfig(review.sentiment);
 //                     return (
 //                       <motion.tr 
 //                         initial={{ opacity: 0 }}
