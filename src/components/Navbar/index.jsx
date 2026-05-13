@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import SearchBar from './Search';
 import UserProfile from './User';
 import UserButton from './UserButton';
 
 const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const isAdmin = user?.role === 'admin';
+
+  useEffect(() => {
+    const handleStorage = () => {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-cinema-black/90 backdrop-blur-md border-b border-white/10">

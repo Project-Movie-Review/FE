@@ -15,6 +15,7 @@ const UserProfile = () => {
             try {
                 const res = await getInfo();
                 setUser(res.data);
+                localStorage.setItem('user', JSON.stringify(res.data));
             } catch (err) {
                 console.error(err);
             }
