@@ -5,6 +5,10 @@ import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
 import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
+// import AdminLayout from '../components/Admin/AdminLaout';
+// import AdminDashboard from '../pages/admin/AdminDashboard';
+// import AdminUsers from '../pages/admin/AdminUsers';
+// import AdminReviews from '../pages/admin/AdminReviews';
 
 const AppRoutes = () => {
   return (
