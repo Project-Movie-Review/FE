@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 import MovieCard from '../components/MovieCard/index';
+import Pagination from '../components/Pagination';
 import { searchMovies } from '../services/api';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const query = searchParams.get('query') || '';
-  const page = parseInt(searchParams.get('page') || '1');
+  const page = Number(searchParams.get('page') || '1');
   // const year = searchParams.get('year') || '';
   // const genre = searchParams.get('genre') || '';
 
@@ -34,11 +35,15 @@ const SearchPage = () => {
       setLoading(true);
       try {
         const { data } = await searchMovies(query, page);
-        const {item, pagnition} = data;
-        setMovies(item || []);
-        setTotalPages(pagnition?.totalPages || 1);
+        const items = data?.items ?? data?.item ?? [];
+        const paginationMeta = data?.paginationMeta ?? data?.pagnition ?? data?.pagination ?? null;
+
+        setMovies(Array.isArray(items) ? items : []);
+        setTotalPages(Number(paginationMeta?.totalPages ?? data?.totalPages ?? 1));
       } catch (err) {
         console.error('Lỗi khi tìm kiếm:', err);
+        setMovies([]);
+        setTotalPages(1);
       } finally {
         setLoading(false);
       }
@@ -102,14 +107,13 @@ const SearchPage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
             </div>
-            {/* Phân trang */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center space-x-6 mt-12">
-                <button disabled={page === 1} onClick={() => handlePageChange(page - 1)} className="px-6 py-3 bg-cinema-zinc text-white font-bold rounded-lg disabled:opacity-30 hover:bg-zinc-700 transition">Trang trước</button>
-                <span className="text-gray-400 font-medium">Trang {page} / {totalPages}</span>
-                <button disabled={page === totalPages} onClick={() => handlePageChange(page + 1)} className="px-6 py-3 bg-cinema-zinc text-white font-bold rounded-lg disabled:opacity-30 hover:bg-zinc-700 transition">Trang sau</button>
-              </div>
-            )}
+            <div className="mt-12">
+              <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
           </>
         ) : (
           <div className="text-center py-32 text-gray-500 text-xl font-medium">Không tìm thấy bộ phim nào phù hợp.</div>

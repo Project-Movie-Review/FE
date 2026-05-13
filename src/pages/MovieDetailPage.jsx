@@ -6,6 +6,8 @@ import MovieHeader from '../components/MovieDetail/MovieHeader';
 import ReviewForm from '../components/MovieDetail/ReviewForm';
 import ReviewList from '../components/MovieDetail/ReviewList';
 import MovieInfo from '../components/MovieDetail/MovieInfo';
+import ReviewFilter from '../components/MovieDetail/ReviewFilter';
+import Pagination from '../components/Pagination';
 import { MessageSquare, Star, ThumbsUp, ThumbsDown, Minus } from 'lucide-react';
 
 const MovieDetailPage = () => {
@@ -22,6 +24,12 @@ const MovieDetailPage = () => {
   const [isInWatchlist, setIsInWatchlist] = useState(false);
   const [isLoadingWatchlist, setIsLoadingWatchlist] = useState(false);
   const [reviewAvg, setReviewAvg] = useState(null);
+  const [reviewPage, setReviewPage] = useState(1);
+  const [totalReviewPages, setTotalReviewPages] = useState(1);
+  const [totalReviewItems, setTotalReviewItems] = useState(0);
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
+  const reviewsPerPage = 5;
 
   const isLoggedIn = !!localStorage.getItem('accessToken');
 
@@ -34,7 +42,7 @@ const MovieDetailPage = () => {
 
         const [movieRes, reviewsRes] = await Promise.all([
           getMovieDetail(id),
-          getMovieReviews(id),
+          getMovieReviews(id, sortBy, sortOrder, reviewPage, reviewsPerPage),
         ]);
 
         const movieData = movieRes?.data ?? null;
@@ -45,6 +53,9 @@ const MovieDetailPage = () => {
           : reviewsRes?.data?.items ?? [];
         setReviews(reviewItems);
         setReviewAvg(reviewsRes?.data?.avg ?? null);
+        const paginationMeta = reviewsRes?.data?.paginationMeta ?? {};
+        setTotalReviewPages(Number(paginationMeta?.totalPages ?? 1));
+        setTotalReviewItems(Number(paginationMeta?.totalItems ?? 0));
 
         // Check if movie is in user's watchlist
         if (isLoggedIn && movieData?.id) {
@@ -74,7 +85,7 @@ const MovieDetailPage = () => {
     };
 
     fetchData();
-  }, [id, isLoggedIn]);
+  }, [id, isLoggedIn, reviewPage, sortBy, sortOrder]);
 
   const handleToggleWatchlist = async () => {
     if (!isLoggedIn) {
@@ -103,6 +114,11 @@ const MovieDetailPage = () => {
     } finally {
       setIsLoadingWatchlist(false);
     }
+  };
+
+  const handleReviewPageChange = (newPage) => {
+    setReviewPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleReviewSubmit = async (e) => {
@@ -135,6 +151,7 @@ const MovieDetailPage = () => {
       setIsSubmitting(true);
       const res = await submitReview(movieId, rating, content.trim());
       const createdReview = res?.data ?? res;
+      setReviewPage(1);
       setReviews((current) => [createdReview, ...current]);
       setRating(0);
       setHoverRating(0);
@@ -271,8 +288,15 @@ const MovieDetailPage = () => {
                 <MessageSquare className="mr-3 h-6 w-6 text-cinema-red" />
                 Đánh giá & Bình luận
               </h2>
-              <span className="text-gray-400">{reviews.length} đánh giá</span>
+              <span className="text-gray-400">{totalReviewItems} đánh giá</span>
             </div>
+
+            <ReviewFilter
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSortByChange={setSortBy}
+              onSortOrderChange={setSortOrder}
+            />
 
             <ReviewForm
               rating={rating}
@@ -290,6 +314,16 @@ const MovieDetailPage = () => {
               formatDate={formatDate}
               formatSentiment={formatSentiment}
             />
+
+            {totalReviewPages > 1 && (
+              <div className="mt-8">
+                <Pagination
+                  currentPage={reviewPage}
+                  totalPages={totalReviewPages}
+                  onPageChange={handleReviewPageChange}
+                />
+              </div>
+            )}
           </div>
 
           {/* Right Column - Movie Info */}
