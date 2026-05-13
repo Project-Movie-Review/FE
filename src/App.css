@@ -1,3 +1,56 @@
+/* Global Styles */
+:root {
+  --cinema-black: #121212;
+  --cinema-black-light: #1a1a1a;
+  --cinema-zinc: #27272a;
+  --cinema-zinc-light: #3f3f46;
+  --cinema-red: #E50914;
+}
+
+body {
+  background-color: var(--cinema-black) !important;
+}
+
+/* Lighten dark backgrounds */
+[class*="bg-cinema-black"] {
+  background-color: var(--cinema-black-light) !important;
+}
+
+[class*="bg-cinema-zinc"] {
+  background-color: var(--cinema-zinc-light) !important;
+}
+
+/* Improve text contrast */
+[class*="text-white"] {
+  color: #f5f5f5 !important;
+}
+
+[class*="text-gray-400"] {
+  color: #b3b3b3 !important;
+}
+
+[class*="text-gray-300"] {
+  color: #d0d0d0 !important;
+}
+
+/* Enhance border visibility */
+[class*="border-white/10"] {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[class*="border-white/20"] {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Light up accent elements */
+[class*="bg-white/5"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[class*="bg-white/10"] {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

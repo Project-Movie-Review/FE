@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../services/api';
 import { User, Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AuthInput from '../components/AuthInput';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -11,32 +12,23 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
     
-    if (!validateEmail(email)) {
-      setError('Email không hợp lệ');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Mật khẩu phải ít nhất 6 ký tự'); 
-      return;
-    }
-
     try {
-      const response = await register(username, email, password);
-      if (response.status === 201 || response.status === 200) {
+      const { data } = await register(username, email, password);
+      console.log(data);
+      if (data) {
          alert('Đăng ký thành công!');
          navigate('/login');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Email đã tồn tại hoặc thông tin không hợp lệ');
+      if(err.response?.data?.error) {
+        setError(err.response.data.error) || 'Dữ liệu không hợp lệ';
+      } else {
+        setError(err.response?.data?.message || 'Email đã tồn tại hoặc thông tin không hợp lệ');
+      }
     }
   };
 
@@ -68,33 +60,27 @@ const RegisterPage = () => {
         )}
         
         <form className="space-y-6" onSubmit={handleRegister}>
-          <div>
-            <label className="block text-sm mb-2 text-gray-400 font-medium tracking-wide">Tên người dùng</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <User className="h-5 w-5 text-gray-400" />
-              </div>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full pl-12 pr-4 py-4 rounded-lg bg-cinema-black/60 border border-white/5 focus:border-cinema-red focus:ring-4 focus:ring-cinema-red/20 outline-none transition-all duration-500 text-white placeholder-gray-500 shadow-inner" placeholder="Nhập tên của bạn" required />
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm mb-2 text-gray-400 font-medium tracking-wide">Email</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-400" />
-              </div>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full pl-12 pr-4 py-4 rounded-lg bg-cinema-black/60 border border-white/5 focus:border-cinema-red focus:ring-4 focus:ring-cinema-red/20 outline-none transition-all duration-500 text-white placeholder-gray-500 shadow-inner" placeholder="email@example.com" required />
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm mb-2 text-gray-400 font-medium tracking-wide">Mật khẩu</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-400" />
-              </div>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full pl-12 pr-4 py-4 rounded-lg bg-cinema-black/60 border border-white/5 focus:border-cinema-red focus:ring-4 focus:ring-cinema-red/20 outline-none transition-all duration-500 text-white placeholder-gray-500 shadow-inner" placeholder="Ít nhất 6 ký tự" required />
-            </div>
-          </div>
+          <AuthInput
+            icon={User}
+            type="text"
+            value={username}
+            placeholder="Nhập tên của bạn"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <AuthInput
+            icon={Mail}
+            type="email"
+            value={email}
+            placeholder="email@example.com"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <AuthInput
+            icon={Lock}
+            type="password"
+            value={password}
+            placeholder="••••••••"
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button type="submit" className="relative w-full overflow-hidden bg-gradient-to-r from-cinema-red to-[#83050C] text-white font-bold py-4 rounded-lg mt-8 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(229,9,20,0.4)] active:scale-95 text-lg tracking-wide border border-red-500/50 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
             Đăng ký
           </button>
