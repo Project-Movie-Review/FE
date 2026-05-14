@@ -1,5 +1,3 @@
-// Tách phần filter ra phần tìm kiếm nâng cao, tôi có api movie/filter để làm phần đó  rồi
-
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
@@ -9,26 +7,12 @@ import { searchMovies } from '../services/api';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  const query = searchParams.get('query') || '';
-  const page = Number(searchParams.get('page') || '1');
-  // const year = searchParams.get('year') || '';
-  // const genre = searchParams.get('genre') || '';
-
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Mock dữ liệu bộ lọc
-  // const currentYear = new Date().getFullYear();
-  // const years = Array.from({ length: currentYear - 1999 }, (_, i) => currentYear - i);
-  // const genres = [
-  //   { id: '28', name: 'Hành động' },
-  //   { id: '35', name: 'Hài' },
-  //   { id: '18', name: 'Tâm lý' },
-  //   { id: '878', name: 'Viễn tưởng' },
-  //   { id: '27', name: 'Kinh dị' },
-  // ];
+  const query = searchParams.get('query') || '';
+  const page = Number(searchParams.get('page') || '1');
 
   useEffect(() => {
     const fetchSearch = async () => {
@@ -54,15 +38,6 @@ const SearchPage = () => {
     }
   }, [query, page]);
 
-  // const handleFilterChange = (key, value) => {
-  //   const newParams = new URLSearchParams(searchParams);
-  //   if (value) newParams.set(key, value);
-  //   else newParams.delete(key);
-    
-  //   newParams.set('page', '1'); // Reset page về 1 khi lọc
-  //   setSearchParams(newParams);
-  // };
-
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       const newParams = new URLSearchParams(searchParams);
@@ -81,19 +56,6 @@ const SearchPage = () => {
           Kết quả cho: <span className="text-cinema-red">"{query}"</span>
         </h1>
 
-       {/* Thanh Bộ Lọc
-        <div className="flex flex-wrap gap-4 mb-8 p-4 bg-[#27272a]/50 rounded-lg border border-white/10 backdrop-blur-md">
-          <select value={year} onChange={(e) => handleFilterChange('year', e.target.value)} className="bg-cinema-black border border-white/20 text-white p-3 rounded-lg outline-none focus:border-cinema-red transition">
-            <option value="">Tất cả năm phát hành</option>
-            {years.map(y => <option key={y} value={y}>{y}</option>)}
-          </select>
-          <select value={genre} onChange={(e) => handleFilterChange('genre', e.target.value)} className="bg-cinema-black border border-white/20 text-white p-3 rounded-lg outline-none focus:border-cinema-red transition">
-            <option value="">Tất cả thể loại</option>
-            {genres.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-          </select> 
-        </div>  */}
-
-        {/* Hiển thị Dữ liệu & Loading Skeleton */}
         {!query  ? (
           <div className="text-center py-32 text-gray-500 text-xl font-medium">Không tìm thấy bộ phim nào phù hợp.</div>
         ) : loading ? (

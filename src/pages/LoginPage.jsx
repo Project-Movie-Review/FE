@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../services/api';
+import { getInfo, login } from '../services/api';
 import { Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AuthInput from '../components/AuthInput';
@@ -17,8 +17,15 @@ const LoginPage = () => {
     try {
       const { data } = await login(email, password);
       localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      navigate('/'); 
+      const userInfo = await getInfo();
+      localStorage.setItem('user', JSON.stringify(userInfo.data));
+      
+      const role = userInfo.data.role;
+      if (role === 'ADMIN') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Tài khoản hoặc mật khẩu không chính xác');
     }

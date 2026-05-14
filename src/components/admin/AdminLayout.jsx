@@ -1,18 +1,17 @@
-import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, MessageSquare, LogOut, Home } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Home } from 'lucide-react';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   // Simple Role Guard
-  if (user.role !== 'admin') {
+  if (user.role !== 'ADMIN') {
     return (
-      <div className="min-h-screen bg-cinema-black flex flex-col items-center justify-center text-white">
-        <h1 className="text-3xl font-bold text-cinema-red mb-4">Truy cập bị từ chối</h1>
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-white">
+        <h1 className="text-3xl font-bold text-red-500 mb-4">Truy cập bị từ chối</h1>
         <p className="text-gray-400 mb-6">Bạn không có quyền truy cập khu vực Quản trị viên.</p>
-        <button onClick={() => navigate('/')} className="bg-cinema-zinc px-6 py-2 rounded-full hover:bg-white/10 transition">
+        <button onClick={() => navigate('/')} className="bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-700 transition">
           Về Trang chủ
         </button>
       </div>
@@ -20,15 +19,14 @@ const AdminLayout = () => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
-    navigate('/');
+    navigate('/login');
   };
 
   const navItems = [
     { path: '/admin/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
     { path: '/admin/users', icon: <Users size={20} />, label: 'Quản lý Người dùng' },
-    { path: '/admin/reviews', icon: <MessageSquare size={20} />, label: 'Kiểm duyệt Đánh giá' },
   ];
 
   return (
@@ -36,10 +34,7 @@ const AdminLayout = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gray-950 border-r border-gray-800 flex flex-col sticky top-0 h-screen">
         <div className="p-6 border-b border-gray-800">
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
-            ADMIN PANEL
-          </h2>
-          <p className="text-xs text-gray-500 mt-1">FilmReview Management</p>
+          <h1 className="text-xm text-gray-500 mt-1">FilmReview Management</h1>
         </div>
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
