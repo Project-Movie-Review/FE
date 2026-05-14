@@ -37,3 +37,12 @@ export const toggleWatchlist = (movieId) => api.post('/watchlist/toggle', { movi
 export const getAllUsers = (search, sortBy, sortOrder, page, limit) => api.get('/user/all', { params: { search, sortBy, sortOrder, page, limit } });
 export const getUserById = (userId) => api.get(`/user/profile/${userId}`);
 export const deleteUser = (userId) => api.delete(`/user/delete/${userId}`);
+export const uploadImage = (imageFile) => {
+  const formData = new FormData();
+  formData.append('imageUrls', imageFile);
+  return api.post('/image/upload', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+};
+// Fetch image as a blob when needed (keeps API flexible for previews/downloads)
+export const getImage = (imagePath) => api.get(`/image/${imagePath}`, { responseType: 'blob' });

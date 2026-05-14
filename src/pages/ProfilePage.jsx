@@ -83,7 +83,15 @@ const ProfilePage = () => {
         localStorage.setItem('user', JSON.stringify({ ...JSON.parse(localStorage.getItem('user')), username: response.data.username, avatar: response.data.avatar }));
         setSuccessMessage('Đã cập nhật thông tin thành công!');
         setIsEditing(false);
-        setTimeout(() => setSuccessMessage(''), 3000);
+        // keep localStorage updated then reload to refresh navbar and other global UI
+        setTimeout(() => {
+          setSuccessMessage('');
+          try {
+            window.location.reload();
+          } catch (e) {
+            alert('Cập nhật thành công! Vui lòng tải lại trang để xem thay đổi.' + e.message); 
+          }
+        }, 800);
       }
     } catch (error) {
       const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật thông tin.';

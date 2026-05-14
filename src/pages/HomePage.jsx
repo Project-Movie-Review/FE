@@ -30,7 +30,7 @@ const HomePage = () => {
 
   const heroMovies = movies.slice(0, 5);
   // Tách mảng để hiển thị theo mục
-  const trendingList = movies.slice(5, 15);
+  const trendingList = movies.slice(0, 10);
   const topRatedList = movies.slice(10, 20);
 
   return (
