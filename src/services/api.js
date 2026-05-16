@@ -26,12 +26,11 @@ export const register = (username, email, password) => api.post('/auth/register'
 export const getInfo = () => api.get('/user/profile');
 export const getTrendingMovies = () => api.get('/movie/trending');
 export const searchMovies = (query, page = 1) => api.get('/movie/search', { params: { query, page } });
-export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder) => api.get('/movie/filter', { params: { minRating, maxRating, genreIds, minReleaseYear, maxReleaseYear, sortBy, sortOrder } });
+export const getMovieReviews = (movieId) => api.get(`/review/${movieId}`);
 export const getUserWatchlist = () => api.get('/watchlist/user');
 export const updateUser = (username = null, avatar = null) => api.put('/user/update', { username, avatar });
 export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword });
 export const getMovieDetail = (id) => api.get(`/movie/${id}`);
-export const getMovieReviews = (id, sortBy, sortOrder, page, limit) => api.get(`/review/${id}`, { params: { sortBy, sortOrder, page, limit } });
 export const submitReview = (movieId, rating, content) => api.post('/review/create', { movieId, rating, content });
 export const toggleWatchlist = (movieId) => api.post('/watchlist/toggle', { movieId });
 export const getAllUsers = (search, sortBy, sortOrder, page, limit) => api.get('/user/all', { params: { search, sortBy, sortOrder, page, limit } });
@@ -46,3 +45,24 @@ export const uploadImage = (imageFile) => {
 };
 // Fetch image as a blob when needed (keeps API flexible for previews/downloads)
 export const getImage = (imagePath) => api.get(`/image/${imagePath}`, { responseType: 'blob' });
+export const filterMovies = (options = {}) => {
+  // If caller passed a nested object by mistake (e.g. { minRating: { minRating: 3, ... } }), flatten one level
+  const flattened = {};
+  Object.entries(options).forEach(([k, v]) => {
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      // merge inner object keys
+      Object.entries(v).forEach(([ik, iv]) => {
+        flattened[ik] = iv;
+      });
+    } else {
+      flattened[k] = v;
+    }
+  });
+
+  const { minRating, maxRating, genreIds, minReleaseDate, maxReleaseDate, sortBy, sortOrder, keyword, page, limit } = flattened;
+  const params = { minRating, maxRating, genreIds, minReleaseDate, maxReleaseDate, sortBy, sortOrder, keyword, page, limit };
+  // remove undefined keys
+  Object.keys(params).forEach((k) => params[k] === undefined && delete params[k]);
+  console.log('filterMovies params:', params);
+  return api.get('/movie/filter', { params });
+};

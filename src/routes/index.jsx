@@ -3,6 +3,7 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
+import FilterPage from '../pages/FilterPage';
 import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/filter" element={<FilterPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/movie/:id" element={<MovieDetailPage />} />
       
