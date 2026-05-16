@@ -26,6 +26,9 @@ const Navbar = () => {
               Admin Panel
             </Link>
           )}
+          <Link to="/filter" className="text-gray-300 hover:text-white text-sm font-medium transition-colors">
+            Khám phá
+          </Link>
         </div>
         
         <SearchBar />

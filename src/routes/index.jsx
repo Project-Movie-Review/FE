@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
 import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
+import FilterPage from '../pages/FilterPage';
 
 // Admin
 import AdminLayout from '../components/admin/AdminLayout';
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/filter" element={<FilterPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/movie/:id" element={<MovieDetailPage />} />
       
