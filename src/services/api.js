@@ -87,7 +87,8 @@ export const searchMovies = (query, page = 1, genre = null, year = null) =>
          filtered = filtered.filter(m => m.title.toLowerCase().includes(query.toLowerCase()));
        }
        if (genre && genre !== '') {
-         filtered = filtered.filter(m => m.genreIds?.includes(genre.toString()));
+         const genreIds = genre.split(',');
+         filtered = filtered.filter(m => genreIds.every(id => m.genreIds?.includes(id.toString())));
        }
        if (year && year !== '') {
          filtered = filtered.filter(m => m.releaseDate.toString().includes(year.toString()));
@@ -122,7 +123,7 @@ export const filterMovies = (minRating, maxRating, genreIds, minReleaseYear, max
      .catch(() => {
        let filtered = [...mockMovies];
        if (genreIds && genreIds.length > 0) {
-         filtered = filtered.filter(m => genreIds.some(id => m.genreIds?.includes(id.toString())));
+         filtered = filtered.filter(m => genreIds.every(id => m.genreIds?.includes(id.toString())));
        }
        if (minReleaseYear) {
          filtered = filtered.filter(m => m.releaseDate >= minReleaseYear);

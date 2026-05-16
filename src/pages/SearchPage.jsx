@@ -12,7 +12,9 @@ const SearchPage = () => {
   const query = searchParams.get('query') || '';
   const page = Number(searchParams.get('page') || '1');
   const year = searchParams.get('year') || '';
-  const genre = searchParams.get('genre') || '';
+  const genresParam = searchParams.get('genres') || '';
+
+  const selectedGenres = genresParam ? genresParam.split(',') : [];
 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
@@ -38,7 +40,8 @@ const SearchPage = () => {
     const fetchSearch = async () => {
       setLoading(true);
       try {
-        const { data } = await searchMovies(query, page, genre, year);
+        // searchMovies nhận genres là chuỗi id cách nhau bởi dấu phẩy
+        const { data } = await searchMovies(query, page, genresParam, year);
         const items = data?.items ?? data?.item ?? [];
         const paginationMeta = data?.paginationMeta ?? data?.pagnition ?? data?.pagination ?? null;
 
@@ -56,7 +59,27 @@ const SearchPage = () => {
     if (query) {
       fetchSearch();
     }
-  }, [query, page, genre, year]);
+  }, [query, page, genresParam, year]);
+
+  const handleGenreToggle = (genreId) => {
+    const newParams = new URLSearchParams(searchParams);
+    let newGenres = [...selectedGenres];
+
+    if (newGenres.includes(genreId)) {
+      newGenres = newGenres.filter(id => id !== genreId);
+    } else {
+      newGenres.push(genreId);
+    }
+
+    if (newGenres.length > 0) {
+      newParams.set('genres', newGenres.join(','));
+    } else {
+      newParams.delete('genres');
+    }
+    
+    newParams.set('page', '1');
+    setSearchParams(newParams);
+  };
 
   const handleFilterChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
@@ -96,17 +119,11 @@ const SearchPage = () => {
                     <ChevronDown className="w-4 h-4" />
                   </label>
                   <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => handleFilterChange('genre', '')}
-                      className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border ${!genre ? 'bg-cinema-red border-cinema-red text-white' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'}`}
-                    >
-                      Tất cả
-                    </button>
                     {genres.map(g => (
                       <button
                         key={g.id}
-                        onClick={() => handleFilterChange('genre', g.id)}
-                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border ${genre === g.id ? 'bg-cinema-red border-cinema-red text-white' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'}`}
+                        onClick={() => handleGenreToggle(g.id)}
+                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border ${selectedGenres.includes(g.id.toString()) ? 'bg-cinema-red border-cinema-red text-white shadow-lg shadow-cinema-red/20' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:bg-white/10'}`}
                       >
                         {g.name}
                       </button>

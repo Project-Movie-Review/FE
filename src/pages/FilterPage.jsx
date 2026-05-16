@@ -10,9 +10,11 @@ const FilterPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const year = searchParams.get('year') || '';
-  const genre = searchParams.get('genre') || '';
+  const genresParam = searchParams.get('genres') || '';
   const page = Number(searchParams.get('page') || '1');
   const sortBy = searchParams.get('sortBy') || 'popularity';
+
+  const selectedGenres = genresParam ? genresParam.split(',') : [];
 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
@@ -39,27 +41,43 @@ const FilterPage = () => {
     const fetchFilteredMovies = async () => {
       setLoading(true);
       try {
-        const { data } = await filterMovies(
-          null, null, genre ? [genre] : null, 
-          year ? year : null, year ? year : null, 
-          sortBy, 'desc'
-        );
-        
-        const items = data?.item ?? data?.items ?? [];
-        const pagination = data?.pagnition ?? data?.pagination ?? { totalPages: 1 };
+        // filterMovies nhận genreIds là mảng
+        const { data } = await filterMovies(0, 10, selectedGenres, year, year, sortBy, 'desc');
+        const items = data?.items ?? data?.item ?? [];
+        const paginationMeta = data?.paginationMeta ?? data?.pagnition ?? data?.pagination ?? null;
 
-        setMovies(items);
-        setTotalPages(pagination.totalPages || 1);
+        setMovies(Array.isArray(items) ? items : []);
+        setTotalPages(Number(paginationMeta?.totalPages ?? data?.totalPages ?? 1));
       } catch (err) {
         console.error('Lỗi khi lọc phim:', err);
         setMovies([]);
+        setTotalPages(1);
       } finally {
         setLoading(false);
       }
     };
-
     fetchFilteredMovies();
-  }, [year, genre, page, sortBy]);
+  }, [genresParam, year, page, sortBy]);
+
+  const handleGenreToggle = (genreId) => {
+    const newParams = new URLSearchParams(searchParams);
+    let newGenres = [...selectedGenres];
+
+    if (newGenres.includes(genreId)) {
+      newGenres = newGenres.filter(id => id !== genreId);
+    } else {
+      newGenres.push(genreId);
+    }
+
+    if (newGenres.length > 0) {
+      newParams.set('genres', newGenres.join(','));
+    } else {
+      newParams.delete('genres');
+    }
+    
+    newParams.set('page', '1');
+    setSearchParams(newParams);
+  };
 
   const handleFilterChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
@@ -92,29 +110,24 @@ const FilterPage = () => {
               </div>
 
               <div className="space-y-6">
-                {/* Thể loại */}
+                <div className="space-y-4">
                 <div className="space-y-3">
                   <label className="text-sm font-semibold text-gray-400 flex items-center justify-between">
                     THỂ LOẠI
                     <ChevronDown className="w-4 h-4" />
                   </label>
                   <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => handleFilterChange('genre', '')}
-                      className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border ${!genre ? 'bg-cinema-red border-cinema-red text-white' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'}`}
-                    >
-                      Tất cả
-                    </button>
                     {genres.map(g => (
                       <button
                         key={g.id}
-                        onClick={() => handleFilterChange('genre', g.id)}
-                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border ${genre === g.id ? 'bg-cinema-red border-cinema-red text-white' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'}`}
+                        onClick={() => handleGenreToggle(g.id)}
+                        className={`px-3 py-2.5 rounded-xl text-xs font-medium transition-all duration-300 border ${selectedGenres.includes(g.id.toString()) ? 'bg-cinema-red border-cinema-red text-white shadow-lg shadow-cinema-red/20 scale-[1.02]' : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:bg-white/10'}`}
                       >
                         {g.name}
                       </button>
                     ))}
                   </div>
+                </div>
                 </div>
 
                 {/* Năm phát hành */}
