@@ -6,7 +6,6 @@ import SearchPage from '../pages/SearchPage';
 import FilterPage from '../pages/FilterPage';
 import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
-import FilterPage from '../pages/FilterPage';
 
 // Admin
 import AdminLayout from '../components/Admin/AdminLayout';
