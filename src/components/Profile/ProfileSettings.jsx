@@ -1,6 +1,6 @@
-import { Lock, Save } from 'lucide-react';
+import { Lock, Save, AlertCircle, CheckCircle } from 'lucide-react';
 
-const ProfileSettings = ({ passwords, onPasswordChange, onSave }) => {
+const ProfileSettings = ({ passwords, onPasswordChange, onSave, error, success }) => {
   return (
     <section className="bg-cinema-zinc/30 rounded-2xl p-8 border border-white/10 shadow-xl animate-fade-in">
       <div className="flex justify-between items-center mb-8">
@@ -17,7 +17,21 @@ const ProfileSettings = ({ passwords, onPasswordChange, onSave }) => {
         </button>
       </div>
 
-      <div className="space-y-12">
+      {error && (
+        <div className="mt-6 flex items-center space-x-3 bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+          <span className="text-red-400 text-sm">{error}</span>
+        </div>
+      )}
+
+      {success && (
+        <div className="mt-6 flex items-center space-x-3 bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+          <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <span className="text-green-400 text-sm">{success}</span>
+        </div>
+      )}
+
+      <div className="space-y-12 mt-6">
         <div>
           <h3 className="text-xl font-semibold mb-4 border-b border-white/10 pb-2">Đổi mật khẩu</h3>
           <div className="space-y-4 max-w-lg">

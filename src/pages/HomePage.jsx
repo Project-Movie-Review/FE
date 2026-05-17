@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
-import { getTrendingMovies } from '../services/api';
+import { getTrendingMovies} from '../services/api';
+import FilterDialog from '../components/FilterDialog';
 import HeroSection from '../components/HeroSection/index';
 import MovieSection from '../components/MovieSection';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -24,18 +26,34 @@ const HomePage = () => {
     fetchMovies();
   }, []);
   
+  const handleFilter = (filterOptions) => {
+    setIsFilterOpen(false);
+    try {
+      const params = new URLSearchParams();
+      Object.entries(filterOptions || {}).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === '') return;
+        params.set(key, String(value));
+      });
+
+      navigate(`/filter?${params.toString()}`);
+    } catch (err) {
+      console.error('Error preparing filter navigation:', err);
+    }
+  };
+
   const handleMovieClick = (id) => {
     navigate(`/movie/${id}`);
   }
 
   const heroMovies = movies.slice(0, 5);
   // Tách mảng để hiển thị theo mục
-  const trendingList = movies.slice(5, 15);
+  const trendingList = movies.slice(0, 10);
   const topRatedList = movies.slice(10, 20);
 
   return (
     <div className="min-h-screen bg-cinema-black font-sans pb-16">
-      <Navbar />
+      <Navbar onOpenFilter={() => setIsFilterOpen(true)} />
+      <FilterDialog isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} onFilter={handleFilter} />
       
       {loading ? (
         <div className="w-full h-[75vh] bg-cinema-zinc/30 animate-pulse flex items-center justify-center">

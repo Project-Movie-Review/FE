@@ -1,5 +1,6 @@
 import { Star, Calendar, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import  noPoster from '../../assets/noPoster.png';
 
 const MovieCard = ({ movie, onRemove }) => {
   const displayRating =
@@ -26,7 +27,7 @@ const MovieCard = ({ movie, onRemove }) => {
         {/* Poster */}
         <div className="aspect-[2/3] w-full overflow-hidden">
           <img
-            src={movie.poster || 'https://via.placeholder.com/500x750?text=No+Poster'}
+            src={movie.poster || movie.backdrop || noPoster}
             alt={movie.title}
             className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:opacity-50"
           />

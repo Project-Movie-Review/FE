@@ -3,15 +3,15 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
+import FilterPage from '../pages/FilterPage';
 import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
 import FilterPage from '../pages/FilterPage';
 
 // Admin
-import AdminLayout from '../components/admin/AdminLayout';
+import AdminLayout from '../components/Admin/AdminLayout';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import AdminUsers from '../pages/admin/AdminUsers';
-import AdminReviews from '../pages/admin/AdminReviews';
 
 const AppRoutes = () => {
   return (
@@ -28,7 +28,6 @@ const AppRoutes = () => {
         <Route index element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="users" element={<AdminUsers />} />
-        <Route path="reviews" element={<AdminReviews />} />
       </Route>
 
       <Route path="/" element={<HomePage />} /> 

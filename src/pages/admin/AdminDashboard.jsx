@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { getAdminStats } from '../../services/api';
-import { Users, Film, MessageSquare, AlertTriangle, TrendingUp } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Users, Film, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { filterMovies, getAllUsers } from '../../services/api';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -10,8 +10,12 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await getAdminStats();
-        setStats(res.data);
+        const users = await getAllUsers();
+        const movies = await filterMovies();
+        setStats({
+            totalUsers: users.data.paginationMeta?.totalItems || 0,
+            totalMovies: movies.data.pagination?.totalItems || 0,
+        });
       } catch (error) {
         console.error("Failed to fetch stats", error);
       } finally {
@@ -22,14 +26,28 @@ const AdminDashboard = () => {
   }, []);
 
   if (loading) {
-    return <div className="animate-pulse flex items-center justify-center h-64 text-blue-400">Đang tải dữ liệu...</div>;
+    return (
+      <div className="animate-pulse flex items-center justify-center h-64 text-blue-400">
+        Đang tải dữ liệu...
+      </div>
+    );
   }
 
   const statCards = [
-    { title: 'Tổng Người Dùng', value: stats?.totalUsers || 0, icon: <Users size={24} className="text-blue-400" />, bg: 'from-blue-500/10 to-blue-500/5', border: 'border-blue-500/20' },
-    { title: 'Tổng Phim', value: stats?.totalMovies || 0, icon: <Film size={24} className="text-purple-400" />, bg: 'from-purple-500/10 to-purple-500/5', border: 'border-purple-500/20' },
-    { title: 'Tổng Đánh Giá', value: stats?.totalReviews || 0, icon: <MessageSquare size={24} className="text-emerald-400" />, bg: 'from-emerald-500/10 to-emerald-500/5', border: 'border-emerald-500/20' },
-    { title: 'Đánh Giá Tiêu Cực', value: stats?.negativeReviews || 0, icon: <AlertTriangle size={24} className="text-red-400" />, bg: 'from-red-500/10 to-red-500/5', border: 'border-red-500/20', alert: true },
+    { 
+      title: 'Tổng Người Dùng', 
+      value: stats?.totalUsers || 0, 
+      icon: <Users size={24} className="text-blue-400" />, 
+      bg: 'from-blue-500/10 to-blue-500/5', 
+      border: 'border-blue-500/20' 
+    },
+    { 
+      title: 'Tổng Phim', 
+      value: stats?.totalMovies || 0, 
+      icon: <Film size={24} className="text-purple-400" />, 
+      bg: 'from-purple-500/10 to-purple-500/5', 
+      border: 'border-purple-500/20' 
+    },
   ];
 
   return (
@@ -82,30 +100,11 @@ const AdminDashboard = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
               <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-              <p className="text-sm text-gray-300 flex-1">Người dùng <span className="font-bold text-white">JohnDoe</span> vừa đăng ký tài khoản mới.</p>
-              <span className="text-xs text-gray-500">5 phút trước</span>
+              <p className="text-sm text-gray-300 flex-1">Hiện có <span className="font-bold text-white">{stats?.totalUsers || 0}</span> người dùng đã đăng ký.</p>
+              <span className="text-xs text-gray-500">Vừa cập nhật</span>
             </div>
-            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
-              <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-              <p className="text-sm text-gray-300 flex-1">Phim <span className="font-bold text-white">Deadpool & Wolverine</span> nhận được đánh giá mới (9/10).</p>
-              <span className="text-xs text-gray-500">12 phút trước</span>
-            </div>
-            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors bg-red-500/5 border border-red-500/10">
-              <div className="w-2 h-2 rounded-full bg-red-400"></div>
-              <p className="text-sm text-gray-300 flex-1">Phát hiện bình luận tiêu cực trong <span className="font-bold text-white">Inside Out 2</span>.</p>
-              <span className="text-xs text-red-400">1 giờ trước</span>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-          <div className="w-20 h-20 rounded-full bg-blue-500/10 flex items-center justify-center mb-4">
-            <Film className="text-blue-400" size={32} />
           </div>
-          <h3 className="text-xl font-bold text-white mb-2">Hệ thống đang hoạt động ổn định</h3>
-          <p className="text-gray-400 max-w-sm">
-            Tất cả các dịch vụ (Database, API, AI Sentiment Analysis) đều đang trong trạng thái xanh.
-          </p>
         </div>
       </div>
     </div>
