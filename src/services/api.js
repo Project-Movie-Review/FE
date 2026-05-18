@@ -26,7 +26,7 @@ export const register = (username, email, password) => api.post('/auth/register'
 export const getInfo = () => api.get('/user/profile');
 export const getTrendingMovies = () => api.get('/movie/trending');
 export const searchMovies = (query, page = 1) => api.get('/movie/search', { params: { query, page } });
-export const getMovieReviews = (movieId) => api.get(`/review/${movieId}`);
+export const getMovieReviews = (movieId, page, limit, sortBy, sortOrder) => api.get(`/review/${movieId}`, { params: { page, limit, sortBy, sortOrder   } });
 export const getUserWatchlist = () => api.get('/watchlist/user');
 export const updateUser = (username = null, avatar = null) => api.put('/user/update', { username, avatar });
 export const changePassword = (oldPassword = null, newPassword = null) => api.put('/user/update', { oldPassword, newPassword });

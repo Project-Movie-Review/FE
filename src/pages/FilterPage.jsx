@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/index';
 import MovieCard from '../components/MovieCard/index';
 import Pagination from '../components/Pagination';
@@ -12,6 +12,7 @@ const FilterPage = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const page = Number(searchParams.get('page') || '1');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFiltered = async () => {
@@ -47,7 +48,7 @@ const FilterPage = () => {
   const handlePageChange = (newPage) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', newPage.toString());
-    window.location.search = newParams.toString();
+    navigate(`/filter?${newParams.toString()}`);
   };
 
   return (

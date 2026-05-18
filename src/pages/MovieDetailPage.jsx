@@ -42,7 +42,7 @@ const MovieDetailPage = () => {
 
         const [movieRes, reviewsRes] = await Promise.all([
           getMovieDetail(id),
-          getMovieReviews(id, sortBy, sortOrder, reviewPage, reviewsPerPage),
+          getMovieReviews(id, reviewPage, reviewsPerPage, sortBy, sortOrder),
         ]);
 
         const movieData = movieRes?.data ?? null;
@@ -121,6 +121,16 @@ const MovieDetailPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSortByChange = (nextSortBy) => {
+    setReviewPage(1);
+    setSortBy(nextSortBy);
+  };
+
+  const handleSortOrderChange = (nextSortOrder) => {
+    setReviewPage(1);
+    setSortOrder(nextSortOrder);
+  };
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
@@ -156,6 +166,7 @@ const MovieDetailPage = () => {
       setRating(0);
       setHoverRating(0);
       setContent('');
+      window.location.reload();
     } catch (err) {
       const backendErrors = err?.response?.data?.error;
       const message = Array.isArray(backendErrors) && backendErrors.length > 0
@@ -294,8 +305,8 @@ const MovieDetailPage = () => {
             <ReviewFilter
               sortBy={sortBy}
               sortOrder={sortOrder}
-              onSortByChange={setSortBy}
-              onSortOrderChange={setSortOrder}
+              onSortByChange={handleSortByChange}
+              onSortOrderChange={handleSortOrderChange}
             />
 
             <ReviewForm

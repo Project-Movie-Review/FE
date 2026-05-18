@@ -5,7 +5,6 @@ const ReviewFilter = ({ sortBy, sortOrder, onSortByChange, onSortOrderChange }) 
     { value: null, label: 'Mặc định' },
     { value: 'rating', label: 'Đánh giá (sao)' },
     { value: 'createdAt', label: 'Mới nhất' },
-    { value: 'usefulCount', label: 'Hữu ích nhất' },
   ];
 
   return (
