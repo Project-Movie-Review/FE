@@ -19,7 +19,8 @@ const MovieHeader = ({
   const backdropUrl = movie.backdrop || movie.backdrop_path;
   const posterUrl = movie.poster || movie.poster_path;
   const movieYear = movie.release_date ? String(movie.release_date).slice(-4) : 'Chưa rõ';
-  const tmdbRating = Number(movie.vote_average ?? 0).toFixed(1);
+  const hasVotes = movie.vote_count && movie.vote_count > 0;
+  const tmdbRating = hasVotes ? `${Number(movie.vote_average ?? 0).toFixed(1)} / 10` : 'TBA';
 
   const handleScrollToReviews = () => {
     const el = document.getElementById('review-section');
@@ -98,7 +99,7 @@ const MovieHeader = ({
               {/* TMDB Rating */}
               <span className="flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-blue-400 font-semibold shadow-sm">
                 <span className="mr-1.5 text-[10px] bg-blue-500 text-white px-1 py-0.5 rounded font-black">TMDB</span>
-                {tmdbRating} / 10
+                {tmdbRating}
               </span>
 
               {/* Web Rating / Call to action */}

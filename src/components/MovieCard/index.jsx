@@ -4,7 +4,7 @@ import  noPoster from '../../assets/noPoster.png';
 
 const MovieCard = ({ movie, onRemove }) => {
   const displayRating =
-    movie.rating && !isNaN(Number(movie.rating))
+    movie.rating && !isNaN(Number(movie.rating)) && Number(movie.rating) > 0
       ? Number(movie.rating).toFixed(1)
       : 'TBA';
 
