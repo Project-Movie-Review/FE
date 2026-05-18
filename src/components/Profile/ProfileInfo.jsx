@@ -9,6 +9,8 @@ const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave, erro
   const [uploadError, setUploadError] = useState('');
   const [localAvatarUrl, setLocalAvatarUrl] = useState('');
 
+  const isDefaultAvatar = !userData.avatar || userData.avatar.startsWith('data:') || userData.avatar.includes('assets/user');
+
   const handleImageUpload = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -132,7 +134,7 @@ const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave, erro
                   <input 
                     type="text" 
                     name="avatar" 
-                    value={localAvatarUrl || resolveAvatarUrl(userData.avatar) || ''} 
+                    value={localAvatarUrl || (isDefaultAvatar ? '' : resolveAvatarUrl(userData.avatar)) || ''} 
                     onChange={(e) => {
                       // normalize input: if user pasted a full URL from our image endpoint,
                       // extract the filename so we store the internal avatar value as filename

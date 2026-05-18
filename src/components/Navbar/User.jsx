@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getInfo } from '../../services/api';
-import defaultUser from '../../assets/user.png';
 import { Link } from 'react-router-dom';
+import { resolveAvatarUrl } from '../../helpers/resolveAvatar';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
 
-    const avatarUrl = user?.avatar ? user.avatar : defaultUser;
+    const avatarUrl = resolveAvatarUrl(user?.avatar);
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');

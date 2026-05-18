@@ -77,7 +77,9 @@ const ProfilePage = () => {
     setProfileError('');
     setSuccessMessage('');
     try {
-      const response = await updateUser(userData.userName, userData.avatar);
+      const isDefault = !userData.avatar || userData.avatar.startsWith('data:') || userData.avatar.includes('assets/user');
+      const avatarToSend = isDefault ? '' : userData.avatar;
+      const response = await updateUser(userData.userName, avatarToSend);
       if (response?.data) {
         setUserData(prev => ({ ...prev, userName: response.data.username, avatar: response.data.avatar }));
         localStorage.setItem('user', JSON.stringify({ ...JSON.parse(localStorage.getItem('user')), username: response.data.username, avatar: response.data.avatar }));
