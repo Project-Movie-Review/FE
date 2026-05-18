@@ -126,9 +126,9 @@ const MovieHeader = ({
                 <Clock className="mr-2 h-4 w-4 text-gray-400" />
                 {movie.runtime ? `${movie.runtime} phút` : 'Chưa có runtime'}
               </span>
-              <span className="flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+              <span className="flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5" title="Tổng số lượt bình chọn từ hệ thống điện ảnh toàn cầu TMDb">
                 <Users className="mr-2 h-4 w-4 text-gray-400" />
-                {movie.vote_count ?? 0} lượt vote
+                {movie.vote_count ?? 0} vote toàn cầu (TMDb)
               </span>
             </div>
 
