@@ -30,7 +30,8 @@ const FilterPage = () => {
         const paginationMeta = payload?.pagination ?? payload?.paginationMeta ?? null;
 
         setMovies(Array.isArray(items) ? items : []);
-        setTotalPages(Number(paginationMeta?.totalPages ?? payload?.totalPages ?? 1));
+        const rawPages = Number(paginationMeta?.totalPages ?? payload?.totalPages ?? 1);
+        setTotalPages(Math.min(rawPages, 500));
       } catch (err) {
         console.error('Lỗi khi lọc phim:', err);
         setMovies([]);
