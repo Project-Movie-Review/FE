@@ -24,9 +24,9 @@ const MovieHeader = ({
     <div className="relative min-h-[500px] w-full overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src={getMediaUrl(backdropUrl, placeholderBackdrop, 'w1280')}
+          src={getMediaUrl(backdropUrl, placeholderBackdrop)}
           alt={movie.title}
-          className="h-full w-full object-cover opacity-20 filter blur-[3px]"
+          className="h-full w-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-cinema-black via-cinema-black/85 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-cinema-black via-cinema-black/90 to-transparent" />
@@ -39,12 +39,12 @@ const MovieHeader = ({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="hidden overflow-hidden rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(229,9,20,0.15)] md:block group cursor-pointer"
+            className="hidden overflow-hidden rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(229,9,20,0.25)] md:block"
           >
             <img
               src={getMediaUrl(posterUrl, placeholderPoster)}
               alt={movie.title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="h-full w-full object-cover"
             />
           </motion.div>
 
