@@ -86,11 +86,7 @@ const ProfilePage = () => {
         // keep localStorage updated then reload to refresh navbar and other global UI
         setTimeout(() => {
           setSuccessMessage('');
-          try {
-            navigate(0); // force reload to update navbar with new username/avatar
-          } catch (e) {
-            alert('Cập nhật thành công! Vui lòng tải lại trang để xem thay đổi.' + e.message); 
-          }
+          setIsEditing(false);
         }, 800);
       }
     } catch (error) {
