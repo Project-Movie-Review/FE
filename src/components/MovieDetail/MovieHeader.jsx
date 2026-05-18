@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, Star, Users, Plus, Minus, Link2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Star, Users, Plus, Minus} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const placeholderPoster = 'https://via.placeholder.com/500x750?text=No+Poster';
@@ -144,20 +144,7 @@ const MovieHeader = ({
                     Thêm watchlist
                   </>
                 )}
-              </button>
-              <a
-                href={movie.homepage || '#'}
-                target="_blank"
-                rel="noreferrer"
-                className={`inline-flex items-center rounded-xl px-5 py-3 font-bold transition-all active:scale-95 ${
-                  movie.homepage
-                    ? 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
-                    : 'pointer-events-none bg-white/10 text-white/40'
-                }`}
-              >
-                <Link2 className="mr-2 h-5 w-5" />
-                Website
-              </a>
+              </button>   
             </div>
           </motion.div>
         </div>
