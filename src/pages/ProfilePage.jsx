@@ -87,7 +87,7 @@ const ProfilePage = () => {
         setTimeout(() => {
           setSuccessMessage('');
           try {
-            window.location.reload();
+            navigate(0); // force reload to update navbar with new username/avatar
           } catch (e) {
             alert('Cập nhật thành công! Vui lòng tải lại trang để xem thay đổi.' + e.message); 
           }
