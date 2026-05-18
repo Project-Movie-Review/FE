@@ -1,4 +1,5 @@
 import { UserCircle, List, Settings, LogOut } from 'lucide-react';
+import { resolveAvatarUrl } from '../../helpers/resolveAvatar';
 
 const ProfileSidebar = ({ userData, activeTab, setActiveTab, onLogout }) => {
   return (
@@ -6,7 +7,7 @@ const ProfileSidebar = ({ userData, activeTab, setActiveTab, onLogout }) => {
       <div className="bg-cinema-zinc/30 rounded-2xl p-8 border border-white/10 flex flex-col items-center">
         <div className="relative group">
           <img 
-            src={userData.avatar} 
+            src={resolveAvatarUrl(userData.avatar)}
             alt="Avatar" 
             className="w-32 h-32 rounded-full object-cover border-4 border-cinema-red shadow-2xl" 
           />

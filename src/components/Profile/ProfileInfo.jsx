@@ -1,16 +1,7 @@
 import { useState, useRef } from 'react';
 import { User, Camera, Edit2, Save, AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import { uploadImage } from '../../services/api';
-
-const IMAGE_BASE_URL = 'http://localhost:6700/api/v1/image/';
-
-const resolveAvatarUrl = (value) => {
-  if (!value) return value;
-  if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('data:')) {
-    return value;
-  }
-  return `${IMAGE_BASE_URL}${value}`;
-};
+import { IMAGE_BASE_URL, resolveAvatarUrl } from '../../helpers/resolveAvatar';
 
 const ProfileInfo = ({ userData, isEditing, setIsEditing, onChange, onSave, error, success }) => {
   const fileInputRef = useRef(null);
