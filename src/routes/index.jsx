@@ -8,7 +8,7 @@ import ProfilePage from '../pages/ProfilePage';
 import MovieDetailPage from '../pages/MovieDetailPage';
 
 // Admin
-import AdminLayout from '../components/Admin/AdminLayout';
+import AdminLayout from '../components/admin/AdminLayout';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import AdminUsers from '../pages/admin/AdminUsers';
 

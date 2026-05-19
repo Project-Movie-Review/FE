@@ -284,6 +284,7 @@ const MovieDetailPage = () => {
       <MovieHeader
         movie={movie}
         reviewAvg={reviewAvg}
+        totalReviewItems={totalReviewItems}
         isInWatchlist={isInWatchlist}
         isLoadingWatchlist={isLoadingWatchlist}
         onToggleWatchlist={handleToggleWatchlist}
@@ -294,7 +295,7 @@ const MovieDetailPage = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           {/* Left Column - Reviews */}
           <div className="space-y-8 lg:col-span-2">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div id="review-section" className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="flex items-center text-3xl font-bold">
                 <MessageSquare className="mr-3 h-6 w-6 text-cinema-red" />
                 Đánh giá & Bình luận

@@ -34,7 +34,7 @@ const LoginPage = () => {
   return (
     <div 
       className="min-h-screen flex items-center justify-center bg-cinema-black relative font-sans overflow-hidden"
-      style={{ backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0bea6af1-5972-4d76-9ddf-75eb9dd75d86/VN-vi-20231030-popsignuptwoweeks-perspective_alpha_website_large.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       {/* Background Overlay: Radial Gradient tạo ánh sáng hội tụ trung tâm, loại bỏ đen thuần */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(63,63,70,0.5)_0%,rgba(18,18,18,0.98)_100%)]"></div>
