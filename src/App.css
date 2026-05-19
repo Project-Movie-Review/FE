@@ -239,3 +239,21 @@ body {
     border-right-color: var(--border);
   }
 }
+
+/* Micro-animations - Slow Pulse */
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px rgba(250, 204, 21, 0.4));
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.8));
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s infinite ease-in-out;
+}
