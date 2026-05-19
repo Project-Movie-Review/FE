@@ -30,15 +30,15 @@ const MovieHeader = ({
   };
 
   return (
-    <div className="relative min-h-[500px] w-full overflow-hidden bg-[#1D2951]">
+    <div className="relative min-h-[500px] w-full overflow-hidden bg-[#0A1128]">
       <div className="absolute inset-0">
         <img
           src={getMediaUrl(backdropUrl, placeholderBackdrop)}
           alt={movie.title}
           className="h-full w-full object-cover opacity-45"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D2951] via-[#1D2951]/85 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1D2951] via-[#1D2951]/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/85 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A1128] via-[#0A1128]/90 to-transparent" />
       </div>
 
       <div className="relative container mx-auto flex h-full items-center px-4 pt-24">
