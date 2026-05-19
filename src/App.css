@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: var(--cinema-black) !important;
+  background-color: #1D2951 !important;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
