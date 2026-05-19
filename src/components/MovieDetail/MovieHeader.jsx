@@ -35,7 +35,7 @@ const MovieHeader = ({
         <img
           src={getMediaUrl(backdropUrl, placeholderBackdrop)}
           alt={movie.title}
-          className="h-full w-full object-cover opacity-80"
+          className="h-full w-full object-cover opacity-95"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050814] via-[#050814]/85 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050814] via-[#050814]/90 to-transparent" />
