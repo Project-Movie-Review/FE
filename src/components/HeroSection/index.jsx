@@ -39,7 +39,7 @@ const HeroSection = ({ movies = [], onClick }) => {
           />
 
 
-          <div className="relative z-10 container mx-auto h-full px-6 flex flex-col justify-center">
+          <div className="relative z-10 container mx-auto h-full px-6 md:px-20 flex flex-col justify-center">
             <div className="max-w-2xl">
               <HeroContent movie={currentMovie} />
             </div>
