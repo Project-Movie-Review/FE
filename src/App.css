@@ -1,61 +1,211 @@
-/* Global Styles - Premium Cosmic Dark Theme */
+/* Global Styles - Premium Cosmic Theme System */
 :root {
-  --cinema-black: #07070a; /* Deep luxury cosmic black */
-  --cinema-black-light: #0d0d14; /* Sleek card background */
+  --cinema-black: #07070a; 
+  --cinema-black-light: #0d0d14; 
   --cinema-zinc: #12121a;
   --cinema-zinc-light: #1b1b26;
   --cinema-red: #E50914;
+
+  /* Theme variables */
+  --body-bg: #050814;
+  --grid-color: rgba(255, 255, 255, 0.02);
+  --radial-1: rgba(99, 102, 241, 0.08);
+  --radial-2: rgba(229, 9, 20, 0.05);
+  
+  --navbar-bg: rgba(7, 7, 10, 0.9);
+  --navbar-border: rgba(255, 255, 255, 0.1);
+  --footer-bg: #07070a;
+  
+  --card-bg: rgba(13, 13, 20, 0.85);
+  --card-border: rgba(255, 255, 255, 0.1);
+  
+  --header-bg: #050814;
+  --header-bg-rgb: 5, 8, 20;
+}
+
+.light {
+  --body-bg: #eceae4; /* Premium warm sand/platinum champagne */
+  --grid-color: rgba(139, 92, 26, 0.012); /* Delicate warm sepia grid */
+  --radial-1: rgba(99, 102, 241, 0.03);
+  --radial-2: rgba(229, 9, 20, 0.02);
+  
+  --navbar-bg: rgba(248, 247, 243, 0.9); /* Warm Ivory Navbar */
+  --navbar-border: rgba(41, 37, 36, 0.06);
+  --footer-bg: #f5f4f0; /* Soft warm ivory footer */
+  
+  --card-bg: rgba(254, 253, 251, 0.95); /* Bright warm ivory cards */
+  --card-border: rgba(41, 37, 36, 0.07);
+  
+  --header-bg: #eceae4;
+  --header-bg-rgb: 236, 234, 228;
 }
 
 body {
-  background-color: #050814 !important;
+  background-color: var(--body-bg) !important;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(229, 9, 20, 0.05) 0%, transparent 50%) !important;
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px),
+    radial-gradient(circle at 15% 20%, var(--radial-1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, var(--radial-2) 0%, transparent 50%) !important;
   background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100% !important;
   background-attachment: fixed !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Lighten dark backgrounds - Allow body background to shine through */
-[class*="bg-cinema-black"] {
+/* Custom background & border utilities */
+.bg-navbar-custom {
+  background-color: var(--navbar-bg) !important;
+}
+.border-navbar-border {
+  border-color: var(--navbar-border) !important;
+}
+.bg-card-custom {
+  background-color: var(--card-bg) !important;
+}
+.border-card-border {
+  border-color: var(--card-border) !important;
+}
+.bg-footer-custom {
+  background-color: var(--footer-bg) !important;
+}
+
+.bg-header-custom {
+  background-color: var(--header-bg) !important;
+}
+.bg-gradient-to-t-custom {
+  background-image: linear-gradient(to top, var(--header-bg) 0%, rgba(var(--header-bg-rgb), 0.85) 50%, transparent 100%) !important;
+}
+.bg-gradient-to-r-custom {
+  background-image: linear-gradient(to right, var(--header-bg) 0%, rgba(var(--header-bg-rgb), 0.9) 50%, transparent 100%) !important;
+}
+
+/* Global Light Theme overrides to map Tailwind classes automatically */
+.light {
+  color-scheme: light;
+}
+
+.light body {
+  color: #1c1917 !important;
+}
+
+.light [class*="bg-cinema-black"] {
   background-color: transparent !important;
 }
 
-[class*="bg-cinema-zinc"] {
-  background-color: var(--cinema-zinc-light) !important;
+.light [class*="bg-cinema-zinc"] {
+  background-color: #f5f4f0 !important;
 }
 
-/* Improve text contrast */
-[class*="text-white"] {
-  color: #f5f5f5 !important;
+.light [class*="text-white"] {
+  color: #1c1917 !important;
 }
 
-[class*="text-gray-400"] {
-  color: #b3b3b3 !important;
+.light [class*="text-gray-400"] {
+  color: #78716c !important;
 }
 
-[class*="text-gray-300"] {
-  color: #d0d0d0 !important;
+.light [class*="text-gray-300"] {
+  color: #44403c !important;
 }
 
-/* Enhance border visibility */
-[class*="border-white/10"] {
-  border-color: rgba(255, 255, 255, 0.15) !important;
+.light [class*="text-gray-100"] {
+  color: #1c1917 !important;
 }
 
-[class*="border-white/20"] {
-  border-color: rgba(255, 255, 255, 0.25) !important;
+.light [class*="border-white/10"] {
+  border-color: rgba(41, 37, 36, 0.06) !important;
 }
 
-/* Light up accent elements */
-[class*="bg-white/5"] {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+.light [class*="border-white/20"] {
+  border-color: rgba(41, 37, 36, 0.12) !important;
 }
 
-[class*="bg-white/10"] {
-  background-color: rgba(255, 255, 255, 0.12) !important;
+.light [class*="bg-white/5"] {
+  background-color: rgba(41, 37, 36, 0.03) !important;
+}
+
+.light [class*="bg-white/10"] {
+  background-color: rgba(41, 37, 36, 0.06) !important;
+}
+
+.light [class*="bg-black/40"] {
+  background-color: rgba(254, 253, 251, 0.9) !important;
+}
+
+.light [class*="bg-black/60"] {
+  background-color: rgba(254, 253, 251, 0.75) !important;
+}
+
+.light [class*="bg-black/70"] {
+  background-color: rgba(254, 253, 251, 0.85) !important;
+}
+
+.light input {
+  background-color: #fdfdfc !important;
+  color: #1c1917 !important;
+  border-color: #d6d3d1 !important;
+}
+
+.light input::placeholder {
+  color: #a8a29e !important;
+}
+
+.light select {
+  background-color: #fdfdfc !important;
+  color: #1c1917 !important;
+  border-color: #d6d3d1 !important;
+}
+
+.light .bg-zinc-900 {
+  background-color: #fdfdfc !important;
+}
+
+.light .bg-\[\#0d0d14\]\/85 {
+  background-color: var(--card-bg) !important;
+}
+
+.light .border-white\/10 {
+  border-color: var(--card-border) !important;
+}
+
+.light .bg-\[\#07070a\]\/90 {
+  background-color: var(--navbar-bg) !important;
+}
+
+.light .bg-\[\#07070a\] {
+  background-color: var(--footer-bg) !important;
+}
+
+.light .shadow-2xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.02), 0 4px 6px -4px rgba(0, 0, 0, 0.02) !important;
+}
+
+.light h1.bg-clip-text.text-transparent,
+.light h2.bg-clip-text.text-transparent,
+.light h3.bg-clip-text.text-transparent,
+.light p.bg-clip-text.text-transparent {
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: #1c1917 !important;
+}
+
+/* Ensure text in hero sliders and overlays remains white/light for contrast against backdrop images */
+.light section.group [class*="text-gray-400"],
+.light section.group .text-gray-400 {
+  color: #cbd5e1 !important;
+}
+
+.light section.group .bg-gradient-to-r.from-white.via-slate-100.to-gray-300.bg-clip-text.text-transparent {
+  background-image: linear-gradient(to right, #ffffff, #f1f5f9, #cbd5e1) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.light section.group [class*="text-white"],
+.light section.group .text-white {
+  color: #ffffff !important;
 }
 
 .counter {
