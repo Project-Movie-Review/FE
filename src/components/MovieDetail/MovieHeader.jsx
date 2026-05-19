@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, Star, Users, Plus, Minus} from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Users, Plus, Minus} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const placeholderPoster = 'https://via.placeholder.com/500x750?text=No+Poster';
