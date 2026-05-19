@@ -37,9 +37,14 @@ const Navbar = ({ onOpenFilter: externalOpenFilter }) => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full bg-cinema-black/90 backdrop-blur-md border-b border-white/10">
+      <nav className="sticky top-0 z-50 w-full bg-[#07070a]/60 backdrop-blur-xl border-b border-white/5 shadow-lg">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-3xl font-bold text-cinema-red tracking-wider">FILMREVIEW</Link>
+          <Link
+            to="/"
+            className="text-3xl font-extrabold bg-gradient-to-r from-red-500 via-rose-500 to-red-600 bg-clip-text text-transparent tracking-widest drop-shadow-[0_0_12px_rgba(239,68,68,0.25)] hover:scale-105 transition-all duration-300"
+          >
+            FILMREVIEW
+          </Link>
           <SearchBar onOpenFilter={handleOpen} />
 
           <div className="flex items-center space-x-6">

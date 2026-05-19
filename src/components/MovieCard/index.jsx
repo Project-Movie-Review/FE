@@ -22,14 +22,14 @@ const MovieCard = ({ movie, onRemove }) => {
     <div className="relative group">
       <Link
         to={`/movie/${movie.id}`}
-        className="relative block overflow-hidden rounded-2xl bg-cinema-zinc transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(229,9,20,0.35)]"
+        className="relative block overflow-hidden rounded-2xl border border-white/5 bg-cinema-zinc transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:border-cinema-red/30 hover:shadow-[0_15px_35px_rgba(229,9,20,0.25)]"
       >
         {/* Poster */}
         <div className="aspect-[2/3] w-full overflow-hidden">
           <img
             src={movie.poster || movie.backdrop || noPoster}
             alt={movie.title}
-            className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:opacity-50"
+            className="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-108 group-hover:opacity-60"
           />
         </div>
 

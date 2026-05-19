@@ -1,14 +1,18 @@
-/* Global Styles */
+/* Global Styles - Premium Cosmic Dark Theme */
 :root {
-  --cinema-black: #121212;
-  --cinema-black-light: #1a1a1a;
-  --cinema-zinc: #27272a;
-  --cinema-zinc-light: #3f3f46;
+  --cinema-black: #07070a; /* Deep luxury cosmic black */
+  --cinema-black-light: #0d0d14; /* Sleek card background */
+  --cinema-zinc: #12121a;
+  --cinema-zinc-light: #1b1b26;
   --cinema-red: #E50914;
 }
 
 body {
   background-color: var(--cinema-black) !important;
+  background-image: 
+    radial-gradient(circle at 5% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 95% 85%, rgba(229, 9, 20, 0.05) 0%, transparent 45%) !important;
+  background-attachment: fixed !important;
 }
 
 /* Lighten dark backgrounds */
