@@ -237,6 +237,19 @@ body {
   backdrop-filter: blur(16px) !important;
 }
 
+.light .auth-submit-btn {
+  background-image: linear-gradient(to right, #18181b, #000000) !important;
+  color: #ef4444 !important;
+  border-color: #b91c1c !important;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.2) !important;
+}
+
+.light .auth-submit-btn:hover {
+  background-image: linear-gradient(to right, #000000, #18181b) !important;
+  color: #fca5a5 !important;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4) !important;
+}
+
 .light .home-back-btn {
   background-color: rgba(254, 253, 251, 0.85) !important;
   border-color: rgba(41, 37, 36, 0.08) !important;

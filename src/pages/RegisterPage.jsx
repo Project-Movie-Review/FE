@@ -87,7 +87,7 @@ const RegisterPage = () => {
             placeholder="••••••••"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" className="relative w-full overflow-hidden bg-gradient-to-r from-cinema-red to-[#83050C] text-white font-bold py-4 rounded-lg mt-8 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(229,9,20,0.4)] active:scale-95 text-lg tracking-wide border border-red-500/50 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
+          <button type="submit" className="relative w-full overflow-hidden bg-gradient-to-r from-cinema-red to-[#83050C] text-white font-bold py-4 rounded-lg mt-8 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(229,9,20,0.4)] active:scale-95 text-lg tracking-wide border border-red-500/50 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 auth-submit-btn">
             Đăng ký
           </button>
         </form>
