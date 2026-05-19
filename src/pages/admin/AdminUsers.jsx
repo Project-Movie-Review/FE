@@ -192,7 +192,15 @@ const AdminUsers = () => {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         {user.avatar ? (
-                          <img src={user.avatar} alt={user.username} className="w-8 h-8 rounded-full" />
+                          <img 
+                            src={user.avatar} 
+                            alt={user.username} 
+                            className="w-8 h-8 rounded-full object-cover" 
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=random`;
+                            }}
+                          />
                         ) : (
                           <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">
                             {user.username.charAt(0).toUpperCase()}
