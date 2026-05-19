@@ -208,6 +208,17 @@ body {
   color: #ffffff !important;
 }
 
+/* Keep text white in movie card hover overlays in light mode for readability against the dark gradient overlay */
+.light .group .absolute.inset-0 h3,
+.light .group .absolute.inset-0 [class*="text-white"],
+.light .group .absolute.inset-0 .text-white,
+.light .group .absolute.inset-0 [class*="text-gray-300"],
+.light .group .absolute.inset-0 .text-gray-300,
+.light .group .absolute.inset-0 [class*="text-gray-400"],
+.light .group .absolute.inset-0 .text-gray-400 {
+  color: #ffffff !important;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
