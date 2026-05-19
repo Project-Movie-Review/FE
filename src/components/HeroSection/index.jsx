@@ -41,11 +41,11 @@ const HeroSection = ({ movies = [], onClick }) => {
           />
 
 
-          <div className="relative z-10 container mx-auto h-full px-6 md:px-20 flex flex-col justify-center">
+          <div className="relative z-10 container mx-auto h-full px-6 md:px-20 flex flex-col justify-between">
             <div className="max-w-2xl">
               <HeroContent movie={currentMovie} />
             </div>
-            <div className="mt-8">
+            <div>
               <HeroActions onClick={() => onClick(currentMovie.id)}/>
             </div>
           </div>
