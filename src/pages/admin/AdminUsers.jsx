@@ -4,6 +4,7 @@ import Pagination from '../../components/Pagination';
 import { ChevronDown, ChevronUp, ChevronsUpDown, Trash2, Search, UserX } from 'lucide-react';
 import { motion } from 'framer-motion';
 import defaultAvatar from '../../assets/user.png';
+import { deleteUser } from '../../services/api';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -47,7 +48,7 @@ const AdminUsers = () => {
   const handleDelete = async (userId) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa người dùng này?')) {
       try {
-        // await deleteUser(userId);
+        await deleteUser(userId);
         setUsers(users.filter(u => u.id !== userId));
         alert('Xóa người dùng thành công!');
       } catch (error) {
