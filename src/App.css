@@ -219,6 +219,37 @@ body {
   color: #ffffff !important;
 }
 
+/* Auth Pages Styling - Light/Dark support */
+.auth-bg-wrapper {
+  background-image: url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop);
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-bg-overlay {
+  background: radial-gradient(circle at center, rgba(63, 63, 70, 0.5) 0%, rgba(18, 18, 18, 0.98) 100%) !important;
+}
+
+.light .auth-bg-overlay {
+  background: radial-gradient(circle at center, rgba(236, 234, 228, 0.6) 0%, rgba(236, 234, 228, 0.96) 100%) !important;
+}
+
+.light .auth-card {
+  background-color: rgba(254, 253, 251, 0.85) !important;
+  border-color: rgba(41, 37, 36, 0.08) !important;
+  box-shadow: 0 25px 50px -12px rgba(41, 37, 36, 0.08) !important;
+}
+
+.light .home-back-btn {
+  background-color: rgba(254, 253, 251, 0.85) !important;
+  border-color: rgba(41, 37, 36, 0.08) !important;
+  color: #1c1917 !important;
+}
+
+.light .home-back-btn:hover {
+  background-color: rgba(254, 253, 251, 0.95) !important;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

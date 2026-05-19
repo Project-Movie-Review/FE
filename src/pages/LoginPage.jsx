@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getInfo, login } from '../services/api';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Lock, Home } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AuthInput from '../components/AuthInput';
 
@@ -32,19 +32,25 @@ const LoginPage = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center bg-cinema-black relative font-sans overflow-hidden"
-      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
-      {/* Background Overlay: Radial Gradient tạo ánh sáng hội tụ trung tâm, loại bỏ đen thuần */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(63,63,70,0.5)_0%,rgba(18,18,18,0.98)_100%)]"></div>
+    <div className="min-h-screen flex items-center justify-center bg-cinema-black relative font-sans overflow-hidden auth-bg-wrapper">
+      {/* Floating Home Button */}
+      <Link 
+        to="/" 
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/10 hover:scale-105 active:scale-95 shadow-lg backdrop-blur-md home-back-btn"
+      >
+        <Home className="w-4 h-4" />
+        Về trang chủ
+      </Link>
+
+      {/* Background Overlay */}
+      <div className="absolute inset-0 auth-bg-overlay"></div>
       
-      {/* Khung Card: Premium Cinematic Glassmorphism */}
+      {/* Khung Card */}
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-cinema-zinc/70 backdrop-blur-xl p-10 rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-md border border-white/10 relative z-10"
+        className="bg-cinema-zinc/70 backdrop-blur-xl p-10 rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-md border border-white/10 relative z-10 auth-card"
       >
         <h2 className="text-4xl font-bold mb-8 text-white tracking-wide">Đăng nhập</h2>
         
