@@ -238,16 +238,16 @@ body {
 }
 
 .light .auth-submit-btn {
-  background-image: linear-gradient(to right, #e50914, #b91c1c) !important;
+  background-image: linear-gradient(to right, #b91c1c, #7f1d1d) !important;
   color: #ffffff !important;
-  border-color: #ef4444 !important;
-  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3) !important;
+  border-color: #991b1b !important;
+  box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4) !important;
 }
 
 .light .auth-submit-btn:hover {
-  background-image: linear-gradient(to right, #b91c1c, #991b1b) !important;
+  background-image: linear-gradient(to right, #991b1b, #7f1d1d) !important;
   color: #ffffff !important;
-  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(185, 28, 28, 0.6) !important;
 }
 
 .light .home-back-btn {
