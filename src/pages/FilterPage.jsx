@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar/index';
 import MovieCard from '../components/MovieCard/index';
 import Pagination from '../components/Pagination';
 import { filterMovies } from '../services/api';
+import noPoster from '../assets/noPoster.png';
 
 const FilterPage = () => {
   const [searchParams] = useSearchParams();
@@ -67,7 +68,7 @@ const FilterPage = () => {
         ) : movies.length > 0 ? (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+              {movies.map((movie) => movie.poster ? <MovieCard key={movie.id} movie={movie} /> : <MovieCard key={movie.id} movie={{ ...movie, poster: noPoster }} />)}
             </div>
             <div className="mt-12">
               <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
