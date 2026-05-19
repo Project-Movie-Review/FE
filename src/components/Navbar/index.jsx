@@ -37,7 +37,7 @@ const Navbar = ({ onOpenFilter: externalOpenFilter }) => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full bg-[#07070a]/60 backdrop-blur-xl border-b border-white/5 shadow-lg">
+      <nav className="sticky top-0 z-50 w-full bg-[#07070a]/90 backdrop-blur-xl border-b border-white/10 shadow-lg">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             to="/"

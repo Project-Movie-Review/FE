@@ -4,7 +4,7 @@ const MovieSection = ({ title, movies, onRemove }) => {
   const hasMovies = movies?.length > 0;
 
   return (
-    <section className="relative overflow-hidden bg-white/[0.01] border border-white/[0.03] backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-white/[0.06] hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
+    <section className="relative overflow-hidden bg-[#0d0d14]/85 border border-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-white/20 hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
       {/* Decorative ambient background glows */}
       <div className="absolute -right-24 -top-24 w-72 h-72 bg-cinema-red/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -left-24 -bottom-24 w-72 h-72 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
