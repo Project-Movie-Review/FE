@@ -86,7 +86,11 @@ const ProfilePage = () => {
         // keep localStorage updated then reload to refresh navbar and other global UI
         setTimeout(() => {
           setSuccessMessage('');
-          setIsEditing(false);
+          try {
+            window.location.reload();
+          } catch (e) {
+            alert('Cập nhật thành công! Vui lòng tải lại trang để xem thay đổi.' + e.message);
+          }
         }, 800);
       }
     } catch (error) {
@@ -134,11 +138,11 @@ const ProfilePage = () => {
     switch (activeTab) {
       case 'profile':
         return (
-          <ProfileInfo 
-            userData={userData} 
-            isEditing={isEditing} 
-            setIsEditing={setIsEditing} 
-            onChange={handleChange} 
+          <ProfileInfo
+            userData={userData}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            onChange={handleChange}
             onSave={handleSaveProfile}
             error={profileError}
             success={successMessage}
@@ -146,17 +150,17 @@ const ProfilePage = () => {
         );
       case 'watchlist':
         return (
-          <MovieSection 
-            title="Danh sách yêu thích" 
-            movies={watchlist} 
-            onRemove={handleRemoveFromWatchlist} 
+          <MovieSection
+            title="Danh sách yêu thích"
+            movies={watchlist}
+            onRemove={handleRemoveFromWatchlist}
           />
         );
       case 'settings':
         return (
-          <ProfileSettings 
-            passwords={passwords} 
-            onPasswordChange={handlePasswordChange} 
+          <ProfileSettings
+            passwords={passwords}
+            onPasswordChange={handlePasswordChange}
             onSave={handleSaveSettings}
             error={settingsError}
             success={successMessage}
@@ -174,11 +178,11 @@ const ProfilePage = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-12 pt-28">
         <div className="flex flex-col lg:flex-row gap-12">
-          <ProfileSidebar 
-            userData={userData} 
-            activeTab={activeTab} 
-            setActiveTab={setActiveTab} 
-            onLogout={handleLogout} 
+          <ProfileSidebar
+            userData={userData}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            onLogout={handleLogout}
           />
           <main className="w-full lg:w-3/4">{renderContent()}</main>
         </div>
