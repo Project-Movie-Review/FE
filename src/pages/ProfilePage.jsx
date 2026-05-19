@@ -176,7 +176,7 @@ const ProfilePage = () => {
   if (!isLoggedIn || !userData) return null;
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen bg-cinema-black text-white font-sans">
       <Navbar />
       <div className="container mx-auto px-4 py-12 pt-28">
         <div className="flex flex-col lg:flex-row gap-12">
