@@ -24,7 +24,9 @@ const HeroSection = ({ movies = [], onClick }) => {
 
   if (!hasMovies) return null;
   const currentMovie = movies[current];
-  const imageUrl = currentMovie?.backdrop || FALLBACK_IMAGE;
+  const imageUrl = currentMovie?.backdrop
+    ? currentMovie.backdrop.replace('/t/p/w500/', '/t/p/w1280/')
+    : FALLBACK_IMAGE;
 
   return (
     <section className="relative w-full h-[60vh] md:h-[75vh] overflow-hidden bg-black group">

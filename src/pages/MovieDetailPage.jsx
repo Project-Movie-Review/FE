@@ -191,8 +191,8 @@ const MovieDetailPage = () => {
 
   const getMediaUrl = (value, fallback) => {
     if (!value) return fallback;
-    if (value.startsWith('http')) return value;
-    return `https://image.tmdb.org/t/p/w500${value}`;
+    if (value.startsWith('http')) return value.replace('/t/p/w500/', '/t/p/w1280/');
+    return `https://image.tmdb.org/t/p/w1280${value}`;
   };
 
   const formatCurrency = (value) => {
